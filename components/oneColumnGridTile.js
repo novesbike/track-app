@@ -41,7 +41,7 @@ const OneColumnGridTile = (props) => {
             <Text style={styles.title} numberOfLines={2}>
               {props.title}
             </Text>
-            <Text style={styles.subTitle}>{parseFloat(distance).toFixed(2)} km/h</Text>
+            <Text style={styles.subTitle}>{distance} km/h</Text>
           </View>
           
           <View style={styles.subContainer}>
