@@ -2,18 +2,12 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Platform,
   Dimensions,
-  SafeAreaView,
   Text,
   TouchableOpacity,
-  PermissionsAndroid,
-  Alert,
-  YellowBox,
   LogBox,
 } from "react-native";
 import MapView, {
-  Marker,
   AnimatedRegion,
   Polyline,
   PROVIDER_GOOGLE,
@@ -38,8 +32,6 @@ const LocationTaskName = "firstTask";
 const { width, height } = Dimensions.get("window");
 const MapHeight = height * 0.87;
 
-const ASPECT_RATIO = width / height;
-
 const LATITUDE_DELTA = 0.01;
 const LONGITUDE_DELTA = 0.02;
 const LATITUDE = -25.540794;
@@ -59,7 +51,7 @@ export default class MapScreen extends React.Component{
             routeCoordinates: [],
             distanceTravelled: 0,
             prevLatLng: {},
-            mapHeight:MapHeight,
+            mapHeight:MapHeight * 0.1,
             speed:0,
             altitude_:0,
             altitude_Aux:0,
@@ -211,6 +203,7 @@ export default class MapScreen extends React.Component{
       });
       //     console.log("altitude_aux >")
     }
+    return altimetrias;
 }
 
 
@@ -242,7 +235,10 @@ export default class MapScreen extends React.Component{
                 // console.log("lat " + latitude);
                 // console.log("routeCord " + JSON.stringify(routeCoordinates));
                 // console.log(this.state.circuitOn);
+                // console.log(altitude);
                 if(this.state.circuitOn === true){
+                  console.log('altitude_ '+this.state.altitude_)
+                  console.log('altimetria '+this.state.altimetria)
                     this.setState({
                         latitude,
                         longitude,

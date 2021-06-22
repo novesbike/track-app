@@ -14,9 +14,12 @@ import Colors from "../../constants/colors";
 import Fonts from "../../constants/fonts";
 
 import Icon from "react-native-vector-icons/Feather";
+import IconDelete from "react-native-vector-icons/AntDesign";
 
 import { Input } from "react-native-elements";
 import FilePicker from "../../components/filePicker";
+
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 const { width, height } = Dimensions.get("window");
 
@@ -33,6 +36,7 @@ const StartComponent = (props) => {
   const [description, setDescription] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [userAuth, setUserAuth] = useState(false);
+  const [altimetria, setAltimetria] = useState(0);
 
   const countRef = useRef(null);
 
@@ -41,6 +45,7 @@ const StartComponent = (props) => {
     setIsPaused(true);
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1);
+      setAltimetria(parseFloat(props.altimetria).toFixed(1))
     }, 1000);
 
     props.handleCircuit();
@@ -68,6 +73,8 @@ const StartComponent = (props) => {
     props.resetCircuit();
 
     setTimer(0);
+    setAltimetria(0);
+    setModalVisible(!modalVisible);
   };
   const formatTime = () => {
     const getSeconds = `0${timer % 60}`.slice(-2);
@@ -78,8 +85,28 @@ const StartComponent = (props) => {
     return `${getHours}: ${getMinutes} : ${getSeconds}`;
   };
 
+  const formatAltimetria = () =>{
+    let altimetria = (parseFloat(props.altimetria).toFixed(1).toString()).replace('.',',')
+
+    return(altimetria)
+  }
+  const formatDistance = () =>{
+    let distancia = (parseFloat(props.distanceTravelled).toFixed(2).toString()).replace('.',',')
+    return(distancia)
+  }
+  const formatAvgSpeed = () =>{
+    if(props.distanceTravelled > 0){
+      
+      let avgSpeed = (parseFloat(props.distanceTravelled / (timer / 3600)).toFixed(2).toString()).replace('.',',')
+      
+      return(avgSpeed);
+    }
+    
+    return("0,00")
+    
+  }
+
   const handleEnd = () => {
-    setModalVisible(!modalVisible);
 
     const titleToString = title.text;
     const descriptionToString = description.text;
@@ -88,7 +115,7 @@ const StartComponent = (props) => {
       titleToString,
       descriptionToString
     );
-    // handleReset();
+    handleReset();
   };
 
   return (
@@ -97,7 +124,7 @@ const StartComponent = (props) => {
         <Text style={styles.labelText}>Duração</Text>
         <Text style={styles.dataText}>{formatTime()}</Text>
       </View>
-      <View style={styles.borderMiddle}>
+      {/* <View style={styles.borderMiddle}>
         <Text style={styles.labelText}>Velocidade</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.dataText}>
@@ -105,29 +132,33 @@ const StartComponent = (props) => {
           </Text>
           <Text style={styles.labelText}>km/h </Text>
         </View>
-      </View>
+      </View> */}
       <View style={styles.borderMiddle}>
         <Text style={styles.labelText}>Velocidade Média</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.dataText}>
-            {props.distanceTravelled > 0
-              ? parseFloat(props.distanceTravelled / (timer / 3600)).toFixed(2)
-              : "0"}{" "}
+            {formatAvgSpeed()}
           </Text>
-          <Text style={styles.labelText}>km/h </Text>
+          <Text style={styles.labelText}> km/h</Text>
         </View>
       </View>
       <View style={styles.borderMiddle}>
         <Text style={styles.labelText}>Distância</Text>
-        <Text style={styles.dataText}>
-          {parseFloat(props.distanceTravelled).toFixed(2)} km
-        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.dataText}>
+            {formatDistance()}
+          </Text>
+          <Text style={styles.labelText}> km</Text>
+        </View>
       </View>
       <View style={styles.borderTop}>
         <Text style={styles.labelText}>Altimetria</Text>
-        <Text style={styles.dataText}>
-          {parseFloat(props.altimetria).toFixed(1)} m
-        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.dataText}>
+            {formatAltimetria()}
+          </Text>
+          <Text style={styles.labelText}> m</Text>
+        </View>
       </View>
 
       <View style={styles.buttons}>
@@ -166,7 +197,13 @@ const StartComponent = (props) => {
                     >
                       <Text style={styles.buttonText}>Voltar</Text>
                     </Pressable>
-
+                    <Pressable
+                      style={[styles.buttonModal, styles.buttonClose]}
+                      onPress={() => {this.toast.show('Mantenha pressionado', 2000)}}
+                      onLongPress={() => handleReset()}
+                    >
+                      <IconDelete name="delete" size={30} style={styles.buttonText}/>
+                    </Pressable>
                     <Pressable
                       style={[styles.buttonModal, styles.buttonClose]}
                       onPress={() => handleEnd()}
@@ -176,6 +213,7 @@ const StartComponent = (props) => {
                   </View>
                 </View>
               </View>
+              <Toast ref={(toast) => this.toast=toast} position='bottom' opacity={0.8} style={{backgroundColor:'grey'}}/>
             </Modal>
 
             <TouchableOpacity
@@ -271,6 +309,7 @@ const styles = StyleSheet.create({
   borderTop: {
     borderBottomColor: Colors.primaryColor,
     borderBottomWidth: borderwidth,
+    alignItems:"center",
     width: "80%",
   },
   inputComponent: {
