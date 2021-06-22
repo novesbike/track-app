@@ -10,11 +10,10 @@ const { width, height } = Dimensions.get("window");
 
 const RecordListScreen = (props) => {
   const [data_, setData_] = React.useState([]);
-  const [pageSize, setPageSize] = React.useState(5)
+  const [pageSize, setPageSize] = React.useState(15)
 
   useEffect(() => {
     let mounted = true;
-    console.log(data_)
     try{
       getUserEmail().then((email) =>
       api

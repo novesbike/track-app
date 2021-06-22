@@ -6,7 +6,8 @@ import { getUser } from '../utils';
 
 
 const api = axios.create({
-    baseURL:'http://192.168.1.40:8090',
+    // baseURL:'http://192.168.1.40:8090',
+    baseURL:'https://floating-headland-47248.herokuapp.com',
     headers:{
         'Content-Type':'application/json',
         Accept:'application/json'  
@@ -20,7 +21,6 @@ api.interceptors.response.use(
     },
     error => {
 
-        console.log("error response use "+error)
         if(
             error.request._hasError === true && 
             error.request._response.includes('connect')
@@ -69,12 +69,12 @@ api.interceptors.request.use(
                 return Promise.resolve(config)
         })
         .catch(error => {
-            console.log("catch request use config " +error)
+            // console.log("catch request use config " +error)
             return Promise.resolve(config)
         })
     },
     error => {
-        console.log("error config "+ error)
+        // console.log("error config "+ error)
         return Promise.reject(error)
     },
     )
