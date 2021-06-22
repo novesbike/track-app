@@ -91,7 +91,7 @@ const RecordDetailScreen = ({route}) =>{
             <Text style={{fontSize:50}}>{time}</Text>
             <Text style={{fontSize:50}}>{date}</Text>
 */
-    const {title,description,distance,ROUTE,time,date,averageSpeed} = route.params;
+    const {title,description,distance,ROUTE,time,date,averageSpeed, altimetria} = route.params;
     
     return(
         <ScrollView style={{backgroundColor:Colors.primaryColorDark}}>
@@ -123,23 +123,26 @@ const RecordDetailScreen = ({route}) =>{
                 <View style={styles.borderBottomRight}>
                     <Text style={styles.labelText}>Velocidade Média:</Text>
                     <View style={{flexDirection:"row", alignItems:'center'}}>
-                        <Text style={styles.dataText}>{/*      props.distanceTravelled > 0
-                            ? parseFloat(props.distanceTravelled / (timer/3600)).toFixed(2)
-                            : "0"
-    */}</Text>
-                        <Text style={styles.dataText}>{averageSpeed} km/h</Text>
+                        <Text style={styles.dataText}>{averageSpeed}</Text>
+                        <Text style={styles.dataText}> km/h</Text>
                     </View>
                 </View>
                 <View style={styles.borderBottom}>
                     <Text style={styles.labelText}>Distância:</Text>
-                    <Text style={styles.dataText}>{parseFloat(distance).toFixed(2)} km</Text>
+                    <View style={{flexDirection:"row", alignItems:'center'}}>
+                        <Text style={styles.dataText}>{distance}</Text>
+                        <Text style={styles.dataText}> km</Text>
+                    </View>
                 </View>
             </View>
 
             <View style={styles.inLineData}>
                 <View style={styles.borderBottom}>
                     <Text style={styles.labelText}>Altimetria:</Text>
-                    <Text style={styles.dataText}>00 m</Text>
+                    <View style={{flexDirection:"row", alignItems:'center'}}>
+                        <Text style={styles.dataText}>{altimetria}</Text>
+                        <Text style={styles.dataText}> m</Text>
+                    </View>
                 </View>
             </View>
 

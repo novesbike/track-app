@@ -14,7 +14,6 @@ const RecordListScreen = (props) => {
 
   useEffect(() => {
     let mounted = true;
-    console.log(data_)
     try{
       getUserEmail().then((email) =>
       api
@@ -42,27 +41,38 @@ const RecordListScreen = (props) => {
     }
   },[])
 
+  
+
 
   const renderGridItem = (itemData) => {
+    
+  let altimetria = (parseFloat(itemData.item.elevation).toFixed(1).toString()).replace('.',',')
+
+  let distancia = (parseFloat(itemData.item.distance).toFixed(2).toString()).replace('.',',')
+
+  let avgSpeed = (parseFloat(itemData.item.averageSpeed).toFixed(2).toString()).replace('.',',')  
+
     return (
       <OneColumnGridTile
         title={itemData.item.title}
-        distance={itemData.item.distance}
+        distance={distancia}
         elevation={itemData.item.elevation}
         route={itemData.item.route}
         time={itemData.item.timing}
         date={itemData.item.date}
-        averageSpeed={itemData.item.averageSpeed}
+        averageSpeed={avgSpeed}
+        altimetria = {altimetria}
         onSelect={() => {
            props.navigation.navigate("RecordDetail", {
             id: itemData.item.id,
             title: itemData.item.title,
             description : itemData.item.description,
-            distance: itemData.item.distance,
+            distance: distancia,
             ROUTE: itemData.item.route,
             time: itemData.item.timing,
             date: itemData.item.date,
-            averageSpeed:itemData.item.averageSpeed
+            averageSpeed:avgSpeed,
+            altimetria : altimetria
           });
         }}
       />
