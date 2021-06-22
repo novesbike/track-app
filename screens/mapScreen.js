@@ -229,16 +229,8 @@ export default class MapScreen extends React.Component{
                 LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
                 coordinate.timing(newCoordinate,1,{useNativeDriver: true}).start()
-                
-                // console.log("new " + JSON.stringify(newCoordinate));
-                // console.log("long " + longitude);
-                // console.log("lat " + latitude);
-                // console.log("routeCord " + JSON.stringify(routeCoordinates));
-                // console.log(this.state.circuitOn);
-                // console.log(altitude);
+
                 if(this.state.circuitOn === true){
-                  console.log('altitude_ '+this.state.altitude_)
-                  console.log('altimetria '+this.state.altimetria)
                     this.setState({
                         latitude,
                         longitude,
