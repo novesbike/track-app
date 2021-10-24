@@ -50,7 +50,7 @@ export default function SignIn({ navigation, signIn }) {
               secureTextEntry={hidePass}
             />
             <TouchableOpacity style={styles.icon} onPress={() => setHidePass(!hidePass)}>
-              <Icon name={hidePass ? "eye" : "eye-off"} size={20} color={hidePass ? "#757575" : "#FF7300"} />
+              <Icon name={hidePass ? "eye-off" : "eye"} size={20} color={hidePass ? "#757575" : "#FF7300"} />
             </TouchableOpacity>
           </View>
           <Links />
