@@ -25,8 +25,8 @@ export default function SignIn({ navigation, signIn }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <Image source={LOGO} style={{ width: 300 }} />
+      <View style={{ flex: 1, width: "100%", alignItems: "center" }}>
+        <Image source={LOGO} style={{ width: 300, marginTop: 30 }} />
       </View>
 
       <View style={styles.loginbox}>
