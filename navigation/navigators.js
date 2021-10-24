@@ -12,7 +12,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-import { AppLoading } from "expo";
+import  AppLoading  from "expo-app-loading";
 import * as Font from "expo-font";
 
 import { getUser } from "../utils";
@@ -303,6 +303,7 @@ export default () => {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setIsLoading(false)}
+        onError={console.warn}
       />
     );
   }
