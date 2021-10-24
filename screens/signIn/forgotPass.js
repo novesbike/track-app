@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import LOGO from "../../logos/noves-logo.png";
 import SocialButtons from "../../components/socialButtons";
 
-export default function SignIn({ navigation, signIn }) {
+export default function ForgotPass({ navigation, signIn }) {
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
@@ -16,15 +16,15 @@ export default function SignIn({ navigation, signIn }) {
     <View style={styles.links}>
       <Text
         style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate('ForgotPass')}
+        onPress={() => Alert.alert("apertou")}
       >
-        Esqueceu a senha?
+        Não tem conta? cadastre-se
       </Text>
       <Text
         style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => Alert.alert("apertou")}
+        onPress={() => navigation.navigate("SignIn")}
       >
-        Não tem conta? Cadastre-se
+        Faça login
       </Text>
     </View>
   );
@@ -37,9 +37,9 @@ export default function SignIn({ navigation, signIn }) {
 
       <View style={styles.loginbox}>
         <View>
-          <Text style={styles.title}>Login</Text>
+          <Text style={styles.title}>Esqueci a senha</Text>
           <Text style={{ color: "#616161", fontSize: 14 }}>
-            Faça login com o seu email e senha
+            Digite o email que você utilizou para criar a sua conta
           </Text>
         </View>
 
@@ -48,28 +48,8 @@ export default function SignIn({ navigation, signIn }) {
             <TextInput placeholder="E-mail" style={styles.labelInput} />
             <View style={{ padding: 5 }}>
               <Icon name="email" size={20} color="#757575" />
-            </View>      
+            </View>
           </View>
-
-          <View style={[styles.containerInput, { marginBottom: 15 }]}>
-            <TextInput
-              style={styles.labelInput}
-              placeholder="Senha"
-              value={input}
-              onChangeText={(value) => setInput(value)}
-              secureTextEntry={hidePass}
-            />
-            <TouchableOpacity onPress={() => setHidePass(!hidePass)} >
-              <View style={{ padding: 5 }}>
-                <Icon
-                  name={hidePass ? "eye-off" : "eye"}
-                  size={20}
-                  color={hidePass ? "#757575" : "#FF7300"}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          
           <Links />
         </View>
 
@@ -79,10 +59,8 @@ export default function SignIn({ navigation, signIn }) {
           style={styles.submit}
           onPress={() => Alert.alert("logou!!")}
         >
-          Login
+          Enviar código
         </Submit>
-
-        <SocialButtons text="entre com" />
       </View>
     </SafeAreaView>
   );
@@ -116,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomColor: "#ddd",
     borderBottomWidth: 0.75,
-    marginBottom: 30,
+    marginBottom: 15,
   },
   labelInput: {
     flex: 1,

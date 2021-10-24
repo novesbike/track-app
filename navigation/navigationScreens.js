@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 
 import SignUpScreen from "../screens/signUpScreen";
 import SignInScreen from "../screens/signIn";
-
+import ForgotPassScreen from "../screens/signIn/forgotPass";
 import MapScreen from "../screens/mapScreen";
 import ProfileScreen from "../screens/profile/profileScreen";
 import RegisterProfileScreen from "../screens/registration/perfil/registerProfile";
@@ -130,6 +130,10 @@ export const CreateAccount = ({ navigation }) => {
 export const SignIn = ({ navigation }) => {
   const { signIn } = React.useContext(AuthContext);
   return <SignInScreen signIn={() => signIn()} navigation={navigation} />;
+};
+
+export const ForgotPass = ({ navigation }) => {
+  return <ForgotPassScreen navigation={navigation} />;
 };
 
 export const Training = ({ navigation }) => {

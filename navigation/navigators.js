@@ -12,7 +12,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-import  AppLoading  from "expo-app-loading";
+import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 
 import { getUser } from "../utils";
@@ -22,6 +22,7 @@ import OptionsSettings from "../components/optionsSettings";
 import {
   CreateAccount,
   SignIn,
+  ForgotPass,
   Home,
   Details,
   RecordList,
@@ -36,8 +37,8 @@ import {
 } from "./navigationScreens";
 
 /*
-** Telas de autenticação
-*/
+ ** Telas de autenticação
+ */
 const AuthStack = createStackNavigator();
 
 const AuthStackScreen = () => (
@@ -48,8 +49,14 @@ const AuthStackScreen = () => (
       // headerTitleAlign: { alignSelf: "center" },
       // headerStyle: { backgroundColor: Colors.primaryColor },
     }}
-  >      
+  >
     {/* Tela de Login */}
+
+    <AuthStack.Screen
+      name="ForgotPass"
+      component={ForgotPass}
+      // options={{ title: "Noves Bike", headerLeft: null }}
+    />
     <AuthStack.Screen
       name="SignIn"
       component={SignIn}
