@@ -1,9 +1,11 @@
 import React from 'react';
+import { SafeAreaView, Text, View } from 'react-native'
 
 import Navigators from './navigation/navigators'
 
-export default function App(){
-  return(
-    <Navigators/>
-    )
-}
+const App = () => (
+  <Navigators/>
+)
+
+
+export default App;
