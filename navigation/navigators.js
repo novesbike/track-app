@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Platform } from "react-native";
+import { View, Platform, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,7 +12,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-import { AppLoading } from "expo";
+import  AppLoading  from "expo-app-loading";
 import * as Font from "expo-font";
 
 import { getUser } from "../utils";
@@ -35,20 +35,28 @@ import {
   ChangeTraining,
 } from "./navigationScreens";
 
+/*
+** Telas de autenticação
+*/
 const AuthStack = createStackNavigator();
+
 const AuthStackScreen = () => (
   <AuthStack.Navigator
     screenOptions={{
-      headerTintColor: Colors.primaryColorDark,
-      headerTitleAlign: { alignSelf: "center" },
-      headerStyle: { backgroundColor: Colors.primaryColor },
+      headerShown: false,
+      // headerTintColor: Colors.primaryColorDark,
+      // headerTitleAlign: { alignSelf: "center" },
+      // headerStyle: { backgroundColor: Colors.primaryColor },
     }}
-  >
+  >      
+    {/* Tela de Login */}
     <AuthStack.Screen
       name="SignIn"
       component={SignIn}
-      options={{ title: "Noves Bike", headerLeft: null }}
+      // options={{ title: "Noves Bike", headerLeft: null }}
     />
+
+    {/* Criar conta */}
     <AuthStack.Screen
       name="CreateAccount"
       component={CreateAccount}
@@ -295,6 +303,7 @@ export default () => {
       <AppLoading
         startAsync={fetchFonts}
         onFinish={() => setIsLoading(false)}
+        onError={console.warn}
       />
     );
   }

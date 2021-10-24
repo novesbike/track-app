@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 import SignUpScreen from "../screens/signUpScreen";
-import SignInScreen from "../screens/signInScreen";
+import SignInScreen from "../screens/signIn";
 
 import MapScreen from "../screens/mapScreen";
 import ProfileScreen from "../screens/profile/profileScreen";
