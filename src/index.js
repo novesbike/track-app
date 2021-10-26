@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Navigators from 'navigation/navigators'
+import Routes from "./routes/index";
+import { AuthProvider } from "./context/auth.context";
 
 const App = () => (
-    <Navigators/>
-)
-
+  <AuthProvider>
+    <Routes />
+  </AuthProvider>
+);
 
 export default App;
