@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "../context/auth.context";
+import theme from "styles/theme.styles";
 
 // Route Screens
 import AuthRoute from "./route.auth";
@@ -15,7 +16,14 @@ const Tab = createBottomTabNavigator();
 const Root = createStackNavigator();
 
 const TabBottomScreens = () => (
-  <Tab.Navigator>
+  <Tab.Navigator
+    tabBarOptions={{
+      activeTintColor: theme.colors.primary,
+      style: {
+        paddingBottom: 3,
+      },
+    }}
+  >
     <Tab.Screen
       name="Home"
       component={HomeRoute}
