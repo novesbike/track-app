@@ -5,7 +5,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [isError, setIsError] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
   async function checkLoggedUser() {
     const user = AuthService.getLoggedUser();
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
     if (hasUserLoggedIn) {
       setUser(user);
-      setIsLoggedIn(true);
+      setIsLogged(true);
     }
   }
 
@@ -22,18 +22,18 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     return AuthService.login(email, password).then((data) => {
       setUser(data);
-      setIsLoggedIn(true);
+      setIsLogged(true);
     });
   };
 
   const logout = () => {
     AuthService.logout();
-    setIsLoggedIn(false);
+    setIsLogged(false);
   };
 
   const useContext = {
     user,
-    isLoggedIn,
+    isLogged,
     isError,
     setIsError,
     login,

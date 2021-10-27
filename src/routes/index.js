@@ -56,12 +56,12 @@ const TabBottomScreens = () => (
 );
 
 export default () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLogged } = useContext(AuthContext);
 
   return (
     <NavigationContainer>
       <Root.Navigator headerMode="none">
-        {!isLoggedIn ? (
+        {isLogged ? (
           <Root.Screen
             name="App"
             component={TabBottomScreens}
