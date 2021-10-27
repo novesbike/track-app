@@ -6,12 +6,12 @@ import { Button as Submit } from "react-native-paper";
 
 import LOGO from "assets/noves-logo.png";
 
-export default function ({ navigation }) {
+export default function ForgotPassword({ navigation }) {
   const Links = () => (
     <View style={styles.links}>
       <Text
         style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("SignIn")}
+        onPress={() => navigation.navigate("Login")}
       >
         Faça login
       </Text>

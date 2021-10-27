@@ -17,7 +17,7 @@ export default function Register({navigation}) {
         <View style={styles.links}>
             <Text
                 style={{color: "#FF7300", fontSize: 12}}
-                onPress={() => navigation.navigate('SignIn')}
+                onPress={() => navigation.navigate('Login')}
             >
                 Já possui conta? Faça login
             </Text>

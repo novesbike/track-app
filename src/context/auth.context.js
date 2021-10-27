@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => checkLoggedUser(), []);
 
-  const signIn = async (email, password) => {
+  const login = async (email, password) => {
     return AuthService.login(email, password).then((data) => {
       setUser(data);
       setIsLoggedIn(true);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     isLoggedIn,
     isError,
     setIsError,
-    signIn,
+    login,
     logout,
   };
 

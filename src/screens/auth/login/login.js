@@ -4,12 +4,12 @@ import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button as Submit } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import styles from "./signIn.style";
+import styles from "./login.style";
 
 import LOGO from "assets/noves-logo.png";
 import SocialButtons from "components/socialButtons";
 
-export default function SignIn({ navigation }) {
+export default function Login({ navigation }) {
   const [input, setInput] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
@@ -17,13 +17,13 @@ export default function SignIn({ navigation }) {
     <View style={styles.links}>
       <Text
         style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("ForgotPass")}
+        onPress={() => navigation.navigate("ForgotPassword")}
       >
         Esqueceu a senha?
       </Text>
       <Text
         style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate("Register")}
       >
         Não tem conta? Cadastre-se
       </Text>
