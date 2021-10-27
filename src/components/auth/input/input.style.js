@@ -10,7 +10,7 @@ export default StyleSheet.create({
     marginBottom: theme.spacing(4),
   },
   gutterBottom: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   labelInput: {
     flex: 1,

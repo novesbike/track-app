@@ -1,112 +1,60 @@
-import React from "react";
-import { Alert, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button as Submit } from "react-native-paper";
-
 import LOGO from "assets/noves-logo.png";
+import theme from "styles/theme.styles";
 
-export default function ForgotPassword({ navigation }) {
-  const Links = () => (
-    <View style={styles.links}>
-      <Text
-        style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("Login")}
-      >
-        Faça login
-      </Text>
-    </View>
-  );
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image source={LOGO} style={{ width: 300 }} />
-      </View>
-
-      <View style={styles.loginbox}>
-        <View>
-          <Text style={styles.title}>Esqueci a senha</Text>
-          <Text style={{ color: "#616161", fontSize: 14 }}>
-            Digite o email que você utilizou para criar a sua conta
-          </Text>
-        </View>
-
-        <View style={styles.subcontainer}>
-          <View style={styles.containerInput}>
-            <TextInput placeholder="E-mail" style={styles.labelInput} />
-            <View style={{ padding: 5 }}>
-              <Icon name="email" size={20} color="#757575" />
-            </View>
-          </View>
-          <Links />
-        </View>
-
-        <Submit
-          mode="contained"
-          uppercase={false}
-          style={styles.submit}
-          onPress={() => Alert.alert("logou!!")}
-        >
-          Enviar código
-        </Submit>
-      </View>
-    </SafeAreaView>
-  );
-}
+import Card from "components/auth/card/card.component";
+import InputText from "components/auth/input/input.component";
+import SubmitButton from "components/auth/buttons/submit.component";
+import LinkToScreen from "components/link-to-screen/linkToScreen.component";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#293B2F",
+    backgroundColor: theme.colors.secondary,
     justifyContent: "space-between",
     alignItems: "center",
   },
-  loginbox: {
-    padding: 30,
-    width: "100%",
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginVertical: 5,
-    color: "#FF7300",
-    fontWeight: "bold",
-  },
-  subcontainer: {
-    paddingVertical: 30,
-  },
-  containerInput: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottomColor: "#ddd",
-    borderBottomWidth: 0.75,
-    marginBottom: 15,
-  },
-  labelInput: {
+  centerLogo: {
     flex: 1,
-    padding: 0,
-    paddingVertical: 5,
-    fontSize: 16,
-  },
-  links: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-  },
-  submit: {
-    backgroundColor: "#FF7300",
-    borderRadius: 20,
-    marginTop: 15,
-    marginBottom: 30,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+function ForgotPassword() {
+  const [email, setEmail] = useState("");
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.centerLogo}>
+        <Image source={LOGO} style={{ width: 300 }} />
+      </View>
+
+      <Card
+        title="Esqueci a senha"
+        subtitle="Utilize o seu email para recuperar a senha"
+      >
+        <InputText
+          gutterBottom
+          placeholder="E-mail"
+          leftIcon="email"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <View style={[global.row, global.paragraph]}>
+          <LinkToScreen text="Faça login" to="Login" />
+        </View>
+
+        <SubmitButton mode="contained" onPress={() => Alert.alert("logou!!")}>
+          Enviar código
+        </SubmitButton>
+      </Card>
+    </SafeAreaView>
+  );
+}
+
+export default ForgotPassword;

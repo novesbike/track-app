@@ -17,7 +17,7 @@ export default StyleSheet.create({
     fontSize: theme.font.size.medium,
   },
   paragraph: {
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
   center: {
     flex: 1,
