@@ -1,12 +1,59 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "../context/auth.context";
 
-import AuthScreens from "./route.auth.screens";
-import BottomTabScreens from "./route.bottom-tabs";
+// Route Screens
+import AuthRoute from "./route.auth";
+import HomeRoute from "./route.home";
+import TrackingRoute from "./route.tracking";
+import TrainingRoute from "./route.training";
 
+const Tab = createBottomTabNavigator();
 const Root = createStackNavigator();
+
+const TabBottomScreens = () => (
+  <Tab.Navigator>
+    <Tab.Screen
+      name="Home"
+      component={HomeRoute}
+      options={{
+        tabBarLabel: "Home",
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="home" color={color} size={size} />
+        ),
+        tabBarBadge: null,
+      }}
+    />
+    <Tab.Screen
+      name="Tracking"
+      component={TrackingRoute}
+      options={{
+        tabBarLabel: "Iniciar",
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons name="bike" color={color} size={size} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Training"
+      component={TrainingRoute}
+      options={{
+        tabBarLabel: "Treino",
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons
+            name="clipboard-text-outline"
+            color={color}
+            size={size}
+          />
+        ),
+        tabBarBadge: null,
+      }}
+    />
+  </Tab.Navigator>
+);
 
 export default () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -17,13 +64,13 @@ export default () => {
         {!isLoggedIn ? (
           <Root.Screen
             name="App"
-            component={BottomTabScreens}
+            component={TabBottomScreens}
             options={{ animationEnabled: false }}
           />
         ) : (
           <Root.Screen
             name="Auth"
-            component={AuthScreens}
+            component={AuthRoute}
             options={{ animationEnabled: false }}
           />
         )}

@@ -6,8 +6,8 @@ import OptionsSettings from "components/optionsSettings";
 
 import ProfileScreen from "screens/home/profile/profile.screen";
 import UpdateProfileScreen from "screens/home/profile/updateProfile.screen";
-import ActivityDetails from "screens/home/activities/activityDetails.screen";
-import ActivityList from "screens/home/activities/activityList.screen";
+import ActivityListScreen from "screens/home/activities/activityList.screen";
+import ActivityDetailsScreen from "screens/home/activities/activityDetails.screen";
 
 const ProfileStack = createStackNavigator();
 
@@ -34,14 +34,20 @@ export default ({ navigation, route }) => {
         name="Profile"
         component={ProfileScreen}
         options={{
-          title: "Perfil",
+          title: "Home",
           headerRight: () => <OptionsSettings />,
         }}
       />
-
+      <ProfileStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfileScreen}
+        options={{
+          title: "Cadastro de Perfil",
+        }}
+      />
       <ProfileStack.Screen
         name="RecordList"
-        component={ActivityList}
+        component={ActivityListScreen}
         options={{
           title: "Histórico de atividades",
         }}
@@ -49,17 +55,9 @@ export default ({ navigation, route }) => {
 
       <ProfileStack.Screen
         name="RecordDetail"
-        component={ActivityDetails}
+        component={ActivityDetailsScreen}
         options={{
           title: "Detalhes da atividade",
-        }}
-      />
-
-      <ProfileStack.Screen
-        name="UpdateProfile"
-        component={UpdateProfileScreen}
-        options={{
-          title: "Cadastro de Perfil",
         }}
       />
     </ProfileStack.Navigator>
