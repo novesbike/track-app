@@ -2,16 +2,16 @@ import React from "react";
 import { View, Alert } from "react-native";
 import Icons from "react-native-vector-icons/Ionicons";
 
-import { AuthContext } from "src/context";
-import { deleteUser } from "src/utils";
+import AuthContext from "../context/auth.context";
+import { deleteUser } from "services/utils";
 
 export default function OptionsSettings() {
-  const { signOut } = React.useContext(AuthContext);
+  const { logout } = React.useContext(AuthContext);
 
   const handlesignOut = () => {
     console.log("handleSignOut");
     deleteUser();
-    signOut();
+    logout();
   };
 
   return (
