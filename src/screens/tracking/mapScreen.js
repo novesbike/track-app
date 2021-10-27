@@ -25,7 +25,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { ScrollView } from "react-native-gesture-handler";
 
 import Fonts from "constants/fonts";
-import {  getUserEmail } from "src/utils";
+import {  getUserEmail } from "services/utils";
 import api from 'services/api'
 
 const LocationTaskName = "firstTask";

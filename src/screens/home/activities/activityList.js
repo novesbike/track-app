@@ -4,7 +4,7 @@ import { FlatList } from "react-native";
 import OneColumnGridTile from "components/oneColumnGridTile";
 import { DATA } from "src/data/data/dummy-data";
 import api from 'services/api'
-import {  getUserEmail } from "src/utils";
+import {  getUserEmail } from "services/utils";
 
 const { width, height } = Dimensions.get("window");
 

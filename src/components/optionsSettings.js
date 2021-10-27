@@ -3,7 +3,7 @@ import { View, Alert } from "react-native";
 import Icons from "react-native-vector-icons/Ionicons";
 
 import AuthContext from "../context/auth.context";
-import { deleteUser } from "src/utils";
+import { deleteUser } from "services/utils";
 
 export default function OptionsSettings() {
   const { logout } = React.useContext(AuthContext);

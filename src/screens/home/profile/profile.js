@@ -7,7 +7,7 @@ import ButtonOneColumn from "components/buttonOneColumn";
 
 import Colors from "constants/colors";
 
-import { getUser, getUserEmail } from "src/utils";
+import { getUser, getUserEmail } from "services/utils";
 
 import api from "services/api";
 
