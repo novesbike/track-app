@@ -49,7 +49,10 @@ function ForgotPassword() {
           <LinkToScreen text="Faça login" to="Login" />
         </View>
 
-        <SubmitButton mode="contained" onPress={() => Alert.alert("logou!!")}>
+        <SubmitButton
+          mode="contained"
+          onPress={() => Alert.alert("código enviado!!")}
+        >
           Enviar código
         </SubmitButton>
       </Card>

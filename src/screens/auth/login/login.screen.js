@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Alert, Image, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import LOGO from "assets/noves-logo.png";
 import global from "styles/global.styles";
 import theme from "styles/theme.styles";
@@ -10,6 +9,7 @@ import InputText from "components/auth/input/input.component";
 import SocialButtons from "components/auth/buttons/socialbutton.component";
 import SubmitButton from "components/auth/buttons/submit.component";
 import LinkToScreen from "components/link-to-screen/linkToScreen.component";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,10 +26,11 @@ export default function Login() {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
-    <SafeAreaView style={[styles.container]}>
+    <SafeAreaView style={styles.container}>
       <View style={global.center}>
         <Image source={LOGO} style={{ width: 300, marginTop: 40 }} />
       </View>
+
       <Card title="Login" subtitle="Faça login com o seu email e senha">
         <InputText
           placeholder="E-mail"

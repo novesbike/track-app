@@ -1,157 +1,93 @@
 import React, { useState } from "react";
-import { Alert, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Button as Submit } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { Alert, Image, StyleSheet, View } from "react-native";
 import LOGO from "assets/noves-logo.png";
+import global from "styles/global.styles";
+import theme from "styles/theme.styles";
+
+import Card from "components/auth/card/card.component";
+import InputText from "components/auth/input/input.component";
 import SocialButtons from "components/auth/buttons/socialbutton.component";
-
-export default function Register({ navigation }) {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [hidePassword, setHidePassword] = useState(true);
-
-  const Links = () => (
-    <View style={styles.links}>
-      <Text
-        style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("Login")}
-      >
-        Já possui conta? Faça login
-      </Text>
-    </View>
-  );
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image source={LOGO} style={{ width: 300 }} />
-      </View>
-
-      <View style={styles.loginbox}>
-        <View>
-          <Text style={styles.title}>Cadastre-se</Text>
-          <Text style={{ color: "#616161", fontSize: 14 }}>
-            Faça o seu cadastro com o email e senha
-          </Text>
-        </View>
-
-        <View style={styles.subcontainer}>
-          <View style={styles.containerInput}>
-            <TextInput placeholder="Nome" style={styles.labelInput} />
-            <View style={{ padding: 5 }}>
-              <Icon name="account" size={20} color="#757575" />
-            </View>
-          </View>
-
-          <View style={styles.containerInput}>
-            <TextInput placeholder="E-mail" style={styles.labelInput} />
-            <View style={{ padding: 5 }}>
-              <Icon name="email" size={20} color="#757575" />
-            </View>
-          </View>
-
-          <View style={[styles.containerInput]}>
-            <TextInput
-              style={styles.labelInput}
-              placeholder="Senha"
-              value={password}
-              onChangeText={(value) => setPassword(value)}
-              secureTextEntry={hidePassword}
-            />
-            <TouchableOpacity onPress={() => setHidePassword(!hidePassword)}>
-              <View style={{ padding: 5 }}>
-                <Icon
-                  name={hidePassword ? "eye-off" : "eye"}
-                  size={20}
-                  color={hidePassword ? "#757575" : "#FF7300"}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={[styles.containerInput, { marginBottom: 15 }]}>
-            <TextInput
-              style={styles.labelInput}
-              placeholder="Confirme a sua senha"
-              value={confirmPassword}
-              onChangeText={(value) => setConfirmPassword(value)}
-              secureTextEntry={hidePassword}
-            />
-          </View>
-
-          <Links />
-        </View>
-
-        <Submit
-          mode="contained"
-          uppercase={false}
-          style={styles.submit}
-          onPress={() => Alert.alert("cadastrou!!")}
-        >
-          Cadastrar
-        </Submit>
-
-        <SocialButtons text="cadastre-se com" />
-      </View>
-    </SafeAreaView>
-  );
-}
+import SubmitButton from "components/auth/buttons/submit.component";
+import LinkToScreen from "components/link-to-screen/linkToScreen.component";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#293B2F",
+    backgroundColor: theme.colors.secondary,
     justifyContent: "space-between",
     alignItems: "center",
   },
-  loginbox: {
-    padding: 30,
-    width: "100%",
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginVertical: 5,
-    color: "#FF7300",
-    fontWeight: "bold",
-  },
-  subcontainer: {
-    paddingVertical: 30,
-  },
-  containerInput: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottomColor: "#ddd",
-    borderBottomWidth: 0.75,
-    marginBottom: 30,
-  },
-  labelInput: {
+  centerLogo: {
     flex: 1,
-    padding: 0,
-    paddingVertical: 5,
-    fontSize: 16,
-  },
-  links: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-  },
-  submit: {
-    backgroundColor: "#FF7300",
-    borderRadius: 20,
-    marginTop: 15,
-    marginBottom: 30,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
+
+export default function Register() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.centerLogo}>
+        <Image source={LOGO} style={{ width: 300 }} />
+      </View>
+
+      <Card
+        title="Cadastre-se"
+        subtitle="Faça o seu cadastro com o email e senha"
+      >
+        <InputText
+          placeholder="Nome completo"
+          leftIcon="account"
+          value={fullName}
+          onChangeText={setFullName}
+        />
+
+        <InputText
+          placeholder="E-mail"
+          leftIcon="email"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <InputText
+          placeholder="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={hidePassword}
+          leftIcon={hidePassword ? "eye-off" : "eye"}
+          colorIcon={!hidePassword && theme.colors.primary}
+          onPressIcon={() => setHidePassword(!hidePassword)}
+        />
+
+        <InputText
+          gutterBottom
+          placeholder="Confirme a sua senha"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry={hidePassword}
+        />
+
+        <View style={[global.row, global.paragraph]}>
+          <LinkToScreen text="Já possui conta? Faça login" to="Login" />
+        </View>
+
+        <SubmitButton
+          mode="contained"
+          onPress={() => Alert.alert("cadastrou!!")}
+        >
+          Cadastrar
+        </SubmitButton>
+
+        <SocialButtons text="cadastre-se com" />
+      </Card>
+    </SafeAreaView>
+  );
+}
