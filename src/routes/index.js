@@ -1,28 +1,41 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import AuthContext from "../context/auth.context";
-import Splash from "../screens/splash";
-import AuthStack from "./route.auth";
 
-const RootStack = createStackNavigator();
+import AuthScreens from "./route.auth.screens";
+import BottomTabScreens from "./route.bottom-tabs";
+
+const Root = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const DrawerStack = () => (
+  <Drawer.Navigator>
+    <Drawer.Screen name="Home" component={BottomTabScreens} />
+  </Drawer.Navigator>
+);
 
 export default () => {
   const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <NavigationContainer>
-      <RootStack.Navigator headerMode="none">
-        {isLoggedIn ? (
-          <Splash />
+      <Root.Navigator headerMode="none">
+        {!isLoggedIn ? (
+          <Root.Screen
+            name="App"
+            component={DrawerStack}
+            options={{ animationEnabled: false }}
+          />
         ) : (
-          <RootStack.Screen
+          <Root.Screen
             name="Auth"
-            component={AuthStack}
+            component={AuthScreens}
             options={{ animationEnabled: false }}
           />
         )}
-      </RootStack.Navigator>
+      </Root.Navigator>
     </NavigationContainer>
   );
 };
