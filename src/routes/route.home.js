@@ -1,7 +1,7 @@
 import React from "react";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { screenOptions } from ".";
+import { screenOptions } from "./options";
 import OptionsSettings from "components/optionsSettings";
 
 import ProfileScreen from "screens/home/profile/profile.screen";

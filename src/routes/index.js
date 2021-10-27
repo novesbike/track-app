@@ -4,19 +4,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "../context/auth.context";
-import theme from "styles/theme.styles";
 
 // Route Screens
 import AuthRoute from "./route.auth";
 import HomeRoute from "./route.home";
 import TrackingRoute from "./route.tracking";
 import TrainingRoute from "./route.training";
-
-export const screenOptions = {
-  headerTintColor: theme.colors.secondary,
-  headerTitleAlign: { alignSelf: "center" },
-  headerStyle: { backgroundColor: theme.colors.primary },
-};
 
 const Tab = createBottomTabNavigator();
 const Root = createStackNavigator();
