@@ -3,14 +3,8 @@ import * as Font from "expo-font";
 import { setCustomText } from "react-native-global-props";
 
 import MainApplication from "src";
-import SplashScreen from "screens/splash";
+import SplashScreen from "screens/splash/splash.screen";
 
-// todo
-/*
- * load fonts
- * call splash screen
- *
- * */
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +22,7 @@ const App = () => {
 
     setTimeout(() => setIsLoading(false), 3000);
   });
-  // return  <SplashScreen/>
+
   return isLoading ? <SplashScreen /> : <MainApplication />;
 };
 

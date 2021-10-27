@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "constants/colors";
 
-import MapScreen from "screens/tracking/mapScreen";
+import MapScreen from "screens/tracking/map.screen";
 
 const TrackStack = createStackNavigator();
 

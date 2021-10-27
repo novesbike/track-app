@@ -2,8 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "constants/colors";
 
-import TrainingScreen from "screens/training/training";
-import TrainerScreen from "screens/training/trainer/trainer";
+import TrainingScreen from "screens/training/training.screen";
+import TrainerScreen from "screens/training/trainer/trainer.screen";
 
 const TrainingStack = createStackNavigator();
 

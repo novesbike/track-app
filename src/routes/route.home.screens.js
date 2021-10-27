@@ -4,10 +4,10 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Colors from "constants/colors";
 import OptionsSettings from "components/optionsSettings";
 
-import ProfileScreen from "screens/home/profile/profile";
-import UpdateProfileScreen from "screens/home/profile/updateProfile";
-import ActivityDetails from "screens/home/activities/activityDetails";
-import ActivityList from "screens/home/activities/activityList";
+import ProfileScreen from "screens/home/profile/profile.screen";
+import UpdateProfileScreen from "screens/home/profile/updateProfile.screen";
+import ActivityDetails from "screens/home/activities/activityDetails.screen";
+import ActivityList from "screens/home/activities/activityList.screen";
 
 const ProfileStack = createStackNavigator();
 

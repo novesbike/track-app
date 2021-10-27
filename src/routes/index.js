@@ -14,7 +14,7 @@ export default () => {
   return (
     <NavigationContainer>
       <Root.Navigator headerMode="none">
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <Root.Screen
             name="App"
             component={BottomTabScreens}
