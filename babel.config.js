@@ -14,7 +14,6 @@ module.exports = function (api) {
             context: "./src/context",
             data: "./src/data",
             models: "./src/models",
-            navigation: "./src/navigation",
             screens: "./src/screens",
             services: "./src/services",
           },
