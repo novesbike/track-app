@@ -1,7 +1,7 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import Colors from "constants/colors";
+import { createStackNavigator } from "@react-navigation/stack";
+import { screenOptions } from ".";
 import OptionsSettings from "components/optionsSettings";
 
 import ProfileScreen from "screens/home/profile/profile.screen";
@@ -15,7 +15,7 @@ export default ({ navigation, route }) => {
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
     console.log("routeName " + routeName);
-    if (routeName === "RegisterProfile") {
+    if (routeName === "UpdateProfile") {
       navigation.setOptions({ tabBarVisible: false });
     } else {
       navigation.setOptions({ tabBarVisible: true });
@@ -23,13 +23,7 @@ export default ({ navigation, route }) => {
   }, [navigation, route]);
 
   return (
-    <ProfileStack.Navigator
-      screenOptions={{
-        headerTintColor: Colors.primaryColorDark,
-        headerTitleAlign: { alignSelf: "center" },
-        headerStyle: { backgroundColor: Colors.primaryColor },
-      }}
-    >
+    <ProfileStack.Navigator screenOptions={screenOptions}>
       <ProfileStack.Screen
         name="Profile"
         component={ProfileScreen}

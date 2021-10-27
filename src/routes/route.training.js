@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Colors from "constants/colors";
+import { screenOptions } from ".";
 
 import TrainingScreen from "screens/training/training.screen";
 import TrainerScreen from "screens/training/trainer/trainer.screen";
@@ -8,13 +8,7 @@ import TrainerScreen from "screens/training/trainer/trainer.screen";
 const TrainingStack = createStackNavigator();
 
 export default () => (
-  <TrainingStack.Navigator
-    screenOptions={{
-      headerTintColor: Colors.primaryColorDark,
-      headerTitleAlign: { alignSelf: "center" },
-      headerStyle: { backgroundColor: Colors.primaryColor },
-    }}
-  >
+  <TrainingStack.Navigator screenOptions={screenOptions}>
     <TrainingStack.Screen
       name="Training"
       component={TrainingScreen}
