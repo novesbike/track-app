@@ -11,12 +11,14 @@ const App = () => {
   Font.loadAsync({
     "open-sans": require("assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("assets/fonts/OpenSans-Bold.ttf"),
+    PlutoLight: require("assets/fonts/PlutoLight.otf"),
+    PlutoRegular: require("assets/fonts/PlutoRegular.otf"),
     PlutoMedium: require("assets/fonts/PlutoMedium.otf"),
-    PlutoMediumItalic: require("assets/fonts/PlutoMedium-Italic.otf"),
+    PlutoBold: require("assets/fonts/PlutoBold.otf"),
   }).then(() => {
     setCustomText({
       style: {
-        fontFamily: "PlutoMedium",
+        fontFamily: "open-sans",
       },
     });
 
