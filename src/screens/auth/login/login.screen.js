@@ -1,90 +1,64 @@
 import React, { useState } from "react";
-import { Alert, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
+import { Alert, Image, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button as Submit } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import styles from "./login.style";
-
 import LOGO from "assets/noves-logo.png";
-import SocialButtons from "components/socialButtons";
+import global from "styles/global.styles";
+import theme from "styles/theme.styles";
 
-export default function Login({ navigation }) {
-  const [input, setInput] = useState("");
-  const [hidePass, setHidePass] = useState(true);
+import Card from "components/auth/card/card.component";
+import InputText from "components/auth/input/input.component";
+import SocialButtons from "components/auth/buttons/socialbutton.component";
+import SubmitButton from "components/auth/buttons/submit.component";
+import LinkToScreen from "components/link-to-screen/linkToScreen.component";
 
-  const Links = () => (
-    <View style={styles.links}>
-      <Text
-        style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("ForgotPassword")}
-      >
-        Esqueceu a senha?
-      </Text>
-      <Text
-        style={{ color: "#FF7300", fontSize: 12 }}
-        onPress={() => navigation.navigate("Register")}
-      >
-        Não tem conta? Cadastre-se
-      </Text>
-    </View>
-  );
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: theme.colors.secondary,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+});
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, width: "100%", alignItems: "center" }}>
+    <SafeAreaView style={[styles.container]}>
+      <View style={global.center}>
         <Image source={LOGO} style={{ width: 300, marginTop: 40 }} />
       </View>
+      <Card title="Login" subtitle="Faça login com o seu email e senha">
+        <InputText
+          placeholder="E-mail"
+          leftIcon="email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <InputText
+          gutterBottom
+          placeholder="Senha"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={hidePassword}
+          leftIcon={hidePassword ? "eye-off" : "eye"}
+          colorIcon={!hidePassword && theme.colors.primary}
+          onPressIcon={() => setHidePassword(!hidePassword)}
+        />
 
-      <View style={styles.loginbox}>
-        <View>
-          <Text style={styles.title}>Login</Text>
-          <Text style={{ color: "#616161", fontSize: 14 }}>
-            Faça login com o seu email e senha
-          </Text>
+        <View style={[global.row, global.paragraph]}>
+          <LinkToScreen text="Esqueceu a senha?" to="ForgotPassword" />
+          <LinkToScreen text="Não tem conta? Cadastre-se" to="Register" />
         </View>
 
-        <View style={styles.subcontainer}>
-          <View style={styles.containerInput}>
-            <TextInput placeholder="E-mail" style={styles.labelInput} />
-            <View style={{ padding: 5 }}>
-              <Icon name="email" size={20} color="#757575" />
-            </View>
-          </View>
-
-          <View style={[styles.containerInput, { marginBottom: 15 }]}>
-            <TextInput
-              style={styles.labelInput}
-              placeholder="Senha"
-              value={input}
-              onChangeText={(value) => setInput(value)}
-              secureTextEntry={hidePass}
-            />
-            <TouchableOpacity onPress={() => setHidePass(!hidePass)}>
-              <View style={{ padding: 5 }}>
-                <Icon
-                  name={hidePass ? "eye-off" : "eye"}
-                  size={20}
-                  color={hidePass ? "#757575" : "#FF7300"}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          <Links />
-        </View>
-
-        <Submit
-          mode="contained"
-          uppercase={false}
-          style={styles.submit}
-          onPress={() => Alert.alert("logou!!")}
-        >
+        <SubmitButton mode="contained" onPress={() => Alert.alert("logou!!")}>
           Login
-        </Submit>
+        </SubmitButton>
 
         <SocialButtons text="entre com" />
-      </View>
+      </Card>
     </SafeAreaView>
   );
 }
