@@ -1959,7 +1959,7 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
-"@react-native-community/masked-view@^0.1.10":
+"@react-native-community/masked-view@^0.1.11":
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
@@ -5557,7 +5557,7 @@ react-native-modalize@^2.0.8:
   resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-2.0.8.tgz#5dcb2c56d82e3dbd271582f832e7e02ae4cbb503"
   integrity sha512-OKdpFVExEe4YM2uFHL/aStS9p0JaC6gBupjaW1QVHkGq22T2ASYwkhDvTnMS8BLOLWPx2fC3xEBzOcn2rh7EYw==
 
-react-native-paper@^4.9.1:
+react-native-paper@^4.9.2:
   version "4.9.2"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.9.2.tgz#6ecdd81acf2cf4d6d5f0247d4c1812dea93eade0"
   integrity sha512-J7FRsd0YblQawtuj9I46F//apZHadsCKk6jWpc6njFTYdgUeCdkR8KgEto7cp2WxbcGNELx7KGwPQ4zAgX746A==
