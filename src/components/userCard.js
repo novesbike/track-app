@@ -23,7 +23,7 @@ const userCard = ({ firstName, lastName, email, style }) => {
         <View style={{ padding: 5 }}>
           <Image
             style={styles.imageContainer}
-            source={require("logos/default-profile-icon.png")}
+            source={require("assets/default-profile-icon.png")}
           />
         </View>
 

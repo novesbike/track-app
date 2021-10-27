@@ -5,7 +5,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {Button as Submit} from "react-native-paper";
 import {TouchableOpacity} from "react-native-gesture-handler";
 
-import LOGO from "logos/noves-logo.png";
+import LOGO from "assets/noves-logo.png";
 import SocialButtons from "components/socialButtons";
 
 export default function Register({navigation}) {
