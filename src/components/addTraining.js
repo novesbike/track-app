@@ -4,7 +4,7 @@ import { StyleSheet, View, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function CadastroTreino({ title, description, onDeletePress, onValueChange }) {
+function AddTraining({ title, description, onDeletePress, onValueChange }) {
   const [textTitle, onChangeTitle] = useState(title);
   const [textDescription, onChangeDescription] = useState(description);
 
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CadastroTreino;
+export default AddTraining;

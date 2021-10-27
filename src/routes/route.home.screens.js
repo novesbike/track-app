@@ -1,53 +1,67 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Colors from "constants/colors";
+import OptionsSettings from "components/optionsSettings";
 
-import { View, Text, Button } from "react-native";
+import ProfileScreen from "screens/home/profile/profileScreen";
+import UpdateProfileScreen from "screens/home/profile/updateProfile";
+import ActivityDetails from "screens/home/activities/activityDetails";
+import ActivityList from "screens/home/activities/activityList";
 
-const HomeStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
-export const Details = ({ route }) => (
-  <View style={{ flex: 1, alignItems: "center" }}>
-    <Text>Details Screen</Text>
-    {route.params.name && <Text> {route.params.name} </Text>}
-  </View>
-);
+export default ({ navigation, route }) => {
+  React.useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    console.log("routeName " + routeName);
+    if (routeName === "RegisterProfile") {
+      navigation.setOptions({ tabBarVisible: false });
+    } else {
+      navigation.setOptions({ tabBarVisible: true });
+    }
+  }, [navigation, route]);
 
-export const Home = ({ navigation }) => (
-  <View style={{ flex: 1, alignItems: "center" }}>
-    <Text>master List Screen</Text>
-    <Button
-      title="Example"
-      onPress={() => navigation.push("Details", { name: "Example" })}
-    />
-    <Button
-      title="Example"
-      onPress={() => navigation.push("Details", { name: "Example School" })}
-    />
-    <Button title="Drawer" onPress={() => navigation.toggleDrawer()} />
-  </View>
-);
-
-export default () => (
-  <HomeStack.Navigator>
-    <HomeStack.Screen
-      name="Home"
-      component={Home}
-      options={{
-        title: "NOVES",
+  return (
+    <ProfileStack.Navigator
+      screenOptions={{
         headerTintColor: Colors.primaryColorDark,
         headerTitleAlign: { alignSelf: "center" },
         headerStyle: { backgroundColor: Colors.primaryColor },
       }}
-    />
-    <HomeStack.Screen
-      name="Details"
-      component={Details}
-      options={({ route }) => ({
-        title: route.params.name,
-        headerTintColor: Colors.primaryColorDark,
-        headerStyle: { backgroundColor: Colors.primaryColor },
-      })}
-    />
-  </HomeStack.Navigator>
-);
+    >
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: "Perfil",
+          headerRight: () => <OptionsSettings />,
+        }}
+      />
+
+      <ProfileStack.Screen
+        name="RecordList"
+        component={ActivityList}
+        options={{
+          title: "Histórico de atividades",
+        }}
+      />
+
+      <ProfileStack.Screen
+        name="RecordDetail"
+        component={ActivityDetails}
+        options={{
+          title: "Detalhes da atividade",
+        }}
+      />
+
+      <ProfileStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfileScreen}
+        options={{
+          title: "Cadastro de Perfil",
+        }}
+      />
+    </ProfileStack.Navigator>
+  );
+};

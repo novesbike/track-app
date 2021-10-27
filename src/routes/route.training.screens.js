@@ -2,9 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "constants/colors";
 
-import Trainer from "screens/training/treino";
-import ChangeTraining from "screens/training/cadastroTreino";
-import Training from "screens/training/treinador";
+import TrainingScreen from "screens/training/training";
+import TrainerScreen from "screens/training/trainer/trainer";
 
 const TrainingStack = createStackNavigator();
 
@@ -17,18 +16,13 @@ export default () => (
     }}
   >
     <TrainingStack.Screen
-      name="Treinos"
-      component={Training}
+      name="Training"
+      component={TrainingScreen}
       options={{ title: "Treinos" }}
     />
     <TrainingStack.Screen
-      name="Cadastro Treino"
-      component={ChangeTraining}
-      options={{ title: "Cadastro Treinos" }}
-    />
-    <TrainingStack.Screen
-      name="Treinador"
-      component={Trainer}
+      name="Trainer"
+      component={TrainerScreen}
       options={{ title: "Treinador" }}
     />
   </TrainingStack.Navigator>

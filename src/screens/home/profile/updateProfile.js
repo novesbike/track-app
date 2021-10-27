@@ -10,7 +10,7 @@ import {getUserEmail} from 'src/utils'
 import {CommonActions} from "@react-navigation/native"
 
 import api from 'services/api'
-function SignUpScreen({navigation}) {
+function UpdateProfile({navigation}) {
 
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState({
@@ -142,4 +142,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SignUpScreen;
+export default UpdateProfile;

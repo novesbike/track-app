@@ -10,14 +10,14 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
-import Card from "screens/training/cadastroTreino";
+import Card from "components/addTraining";
 import Picker from "components/picker";
 import { FAB, Button, Paragraph, Dialog } from "react-native-paper";
 import data from "src/data";
 
 const Separator = () => <View style={styles.separator} />;
 
-const Treinador = () => {
+const Trainer = () => {
   const [groupLevel, setGroupLevel] = useState([
     { label: "Iniciante", value: "Iniciante" },
     { label: "Intermediário", value: "Intermediário" },
@@ -210,4 +210,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Treinador;
+export default Trainer;

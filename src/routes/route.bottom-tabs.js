@@ -2,29 +2,28 @@ import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import ProfileScreens from "./route.profile.screens";
-import TrackScreens from "./route.track.screens";
+import HomeScreens from "./route.home.screens";
+import TrackingScreens from "./route.tracking.screens";
 import TrainingScreens from "./route.training.screens";
-// import HomeScreens from "./route.home.screens";
 
 const Tabs = createBottomTabNavigator();
 
 export default () => (
   <Tabs.Navigator>
     <Tabs.Screen
-      name="Profile"
-      component={ProfileScreens}
+      name="Home"
+      component={HomeScreens}
       options={{
-        tabBarLabel: "Perfil",
+        tabBarLabel: "Home",
         tabBarIcon: ({ color, size }) => (
-          <MaterialCommunityIcons name="account" color={color} size={size} />
+          <MaterialCommunityIcons name="home" color={color} size={size} />
         ),
         tabBarBadge: null,
       }}
     />
     <Tabs.Screen
-      name="Track"
-      component={TrackScreens}
+      name="Tracking"
+      component={TrackingScreens}
       options={{
         tabBarLabel: "Iniciar",
         tabBarIcon: ({ color, size }) => (
