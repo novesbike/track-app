@@ -16,6 +16,7 @@ module.exports = function (api) {
             models: "./src/models",
             screens: "./src/screens",
             services: "./src/services",
+            styles: "./src/styles",
           },
         },
       ],
