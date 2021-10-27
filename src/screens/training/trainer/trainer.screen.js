@@ -13,7 +13,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Card from "components/addTraining";
 import Picker from "components/picker";
 import { FAB, Button, Paragraph, Dialog } from "react-native-paper";
-import data from "src/data";
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -35,10 +34,6 @@ const Trainer = () => {
   const [atividades, setAtividades] = useState([]);
   const [visible, setVisible] = useState(false);
   const [textDialog, setTextDialog] = useState(false);
-
-  useEffect(() => {
-    setAtividades(data.atividades);
-  }, []);
 
   const handleAdd = () => {
     setAtividades([
