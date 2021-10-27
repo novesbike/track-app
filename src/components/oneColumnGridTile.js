@@ -7,26 +7,23 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-import Font from "constants/fonts";
-import Colors from "constants/colors";
+import theme from "styles/theme.styles";
 
-const formatTime =(time) => {
+const formatTime = (time) => {
+  const getSeconds = `0${time % 60}`.slice(-2);
+  const minutes = `${Math.floor(time / 60)}`;
+  const getMinutes = `0${minutes % 60}`.slice(-2);
+  const getHours = `0${Math.floor(time / 3600)}`.slice(-2);
 
-  const getSeconds = `0${(time % 60)}`.slice(-2)
-  const minutes = `${Math.floor(time / 60)}`
-  const getMinutes = `0${minutes % 60}`.slice(-2)
-  const getHours = `0${Math.floor(time / 3600)}`.slice(-2)
-
-  return `${getHours}: ${getMinutes} : ${getSeconds}`
-}
+  return `${getHours}: ${getMinutes} : ${getSeconds}`;
+};
 
 const OneColumnGridTile = (props) => {
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
-  const { distance } = props
-
+  const { distance } = props;
 
   return (
     <View style={styles.gridItem}>
@@ -34,7 +31,7 @@ const OneColumnGridTile = (props) => {
         <View
           style={{
             ...styles.container,
-            ...{ backgroundColor: Colors.primaryColor },
+            ...{ backgroundColor: theme.colors.primary },
           }}
         >
           <View style={styles.subContainer}>
@@ -48,7 +45,6 @@ const OneColumnGridTile = (props) => {
             <Text style={styles.title}>{props.date}</Text>
             <Text style={styles.subTitle}>{formatTime(props.time)}</Text>
           </View>
-
         </View>
       </TouchableCmp>
     </View>
@@ -73,24 +69,23 @@ const styles = StyleSheet.create({
     elevation: 3,
     padding: 15,
     justifyContent: "space-around",
-    flexDirection:'row'
+    flexDirection: "row",
   },
   title: {
-    fontFamily: Font.fontRegular,
+    fontFamily: theme.font.regular,
     fontSize: 22,
     color: "#fff",
-    paddingBottom:5
+    paddingBottom: 5,
   },
   subTitle: {
-    fontFamily: Font.fontRegular,
+    fontFamily: theme.font.regular,
     fontSize: 15,
     color: "#fff",
   },
   subContainer: {
     flexDirection: "column",
-    alignContent:'center',
-    alignItems:'center',
-
+    alignContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -1,13 +1,7 @@
 import React, { useRef } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Modalize } from "react-native-modalize";
-import Fonts from 'constants/fonts';
+import theme from "styles/theme.styles";
 
 export default function App() {
   const modalizeRef = useRef(null);
@@ -100,7 +94,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#293A2E",
+    backgroundColor: theme.colors.secondary,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -110,8 +104,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 30,
     marginBottom: 15,
-    fontFamily: Fonts.fontRegular
-
+    fontFamily: theme.font.regular,
   },
   modal: {
     height: 120,
@@ -121,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 7.5,
     margin: 15,
-    backgroundColor: "#E56228",
+    backgroundColor: theme.colors.primary,
   },
 
   modalText: {
@@ -136,7 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 250,
     height: 65,
-    backgroundColor: "#E56228",
+    backgroundColor: theme.colors.primary,
     fontWeight: "500",
     padding: 15,
     borderRadius: 7.5,
@@ -157,6 +150,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 20,
     color: "#fff",
-    fontFamily: Fonts.fontRegular
+    fontFamily: theme.font.regular,
   },
 });

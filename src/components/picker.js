@@ -1,20 +1,17 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-} from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import { StyleSheet, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import RNPickerSelect from "react-native-picker-select";
+import theme from "styles/theme.styles";
 
 export default function ({ style, data, value, onValueChange, label }) {
-
   return (
     <View style={style ? style : styles.container}>
       <RNPickerSelect
-        style={{inputAndroid:{color:'black'}}}
+        style={{ inputAndroid: { color: theme.colors.black } }}
         onValueChange={onValueChange}
         value={value}
-        placeholder={{ label, color: "#E56228" }}
+        placeholder={{ label, color: theme.colors.primary }}
         useNativeAndroidPickerStyle={false}
         Icon={() => (
           <MaterialIcons name="keyboard-arrow-down" size={24} color="white" />
@@ -31,7 +28,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   pickerText: {
-    color: "#fff",
-    fontSize: 14,
+    color: theme.colors.white,
+    fontSize: theme.font.size.medium,
   },
 });

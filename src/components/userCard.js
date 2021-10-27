@@ -8,8 +8,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import Font from "constants/fonts";
-import Colors from "constants/colors";
+import theme from "styles/theme.styles";
 
 const userCard = ({ firstName, lastName, email, style }) => {
   let TouchableCmp = TouchableOpacity;
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 3,
     height: 110,
-    backgroundColor: Colors.primaryColorDark,
+    backgroundColor: theme.colors.secondary,
   },
   textContainer: {
     justifyContent: "center",
@@ -60,12 +59,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   title: {
-    fontFamily: Font.fontRegular,
+    fontFamily: theme.font.regular,
     fontSize: 26,
     color: "#fff",
   },
   subTitle: {
-    fontFamily: Font.fontRegular,
+    fontFamily: theme.font.regular,
     fontSize: 18,
     color: "gray",
     padding: 10,

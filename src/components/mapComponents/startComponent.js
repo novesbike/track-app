@@ -9,24 +9,17 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
-
-import Colors from "constants/colors";
-import Fonts from "constants/fonts";
-
+import theme from "styles/theme.styles";
 import Icon from "react-native-vector-icons/Feather";
 import IconDelete from "react-native-vector-icons/AntDesign";
+import Toast from "react-native-easy-toast";
 
-import { Input } from "react-native-elements";
-import FilePicker from "components/filePicker";
-
-import Toast, {DURATION} from 'react-native-easy-toast'
-
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const iconSize = 45;
 const textSize = 16;
 const borderwidth = 0.7;
-const fontRegular = Fonts.fontRegular;
+const fontRegular = theme.font.regular;
 
 const StartComponent = (props) => {
   const [timer, setTimer] = useState(0);
@@ -45,7 +38,7 @@ const StartComponent = (props) => {
     setIsPaused(true);
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1);
-      setAltimetria(parseFloat(props.altimetria).toFixed(1))
+      setAltimetria(parseFloat(props.altimetria).toFixed(1));
     }, 1000);
 
     props.handleCircuit();
@@ -85,29 +78,35 @@ const StartComponent = (props) => {
     return `${getHours}: ${getMinutes} : ${getSeconds}`;
   };
 
-  const formatAltimetria = () =>{
-    let altimetria = (parseFloat(props.altimetria).toFixed(1).toString()).replace('.',',')
+  const formatAltimetria = () => {
+    let altimetria = parseFloat(props.altimetria)
+      .toFixed(1)
+      .toString()
+      .replace(".", ",");
 
-    return(altimetria)
-  }
-  const formatDistance = () =>{
-    let distancia = (parseFloat(props.distanceTravelled).toFixed(2).toString()).replace('.',',')
-    return(distancia)
-  }
-  const formatAvgSpeed = () =>{
-    if(props.distanceTravelled > 0){
+    return altimetria;
+  };
+  const formatDistance = () => {
+    let distancia = parseFloat(props.distanceTravelled)
+      .toFixed(2)
+      .toString()
+      .replace(".", ",");
+    return distancia;
+  };
+  const formatAvgSpeed = () => {
+    if (props.distanceTravelled > 0) {
+      let avgSpeed = parseFloat(props.distanceTravelled / (timer / 3600))
+        .toFixed(2)
+        .toString()
+        .replace(".", ",");
 
-      let avgSpeed = (parseFloat(props.distanceTravelled / (timer / 3600)).toFixed(2).toString()).replace('.',',')
-
-      return(avgSpeed);
+      return avgSpeed;
     }
 
-    return("0,00")
-
-  }
+    return "0,00";
+  };
 
   const handleEnd = () => {
-
     const titleToString = title.text;
     const descriptionToString = description.text;
     props.handleStartComponentEndData(
@@ -136,27 +135,21 @@ const StartComponent = (props) => {
       <View style={styles.borderMiddle}>
         <Text style={styles.labelText}>Velocidade Média</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.dataText}>
-            {formatAvgSpeed()}
-          </Text>
+          <Text style={styles.dataText}>{formatAvgSpeed()}</Text>
           <Text style={styles.labelText}> km/h</Text>
         </View>
       </View>
       <View style={styles.borderMiddle}>
         <Text style={styles.labelText}>Distância</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.dataText}>
-            {formatDistance()}
-          </Text>
+          <Text style={styles.dataText}>{formatDistance()}</Text>
           <Text style={styles.labelText}> km</Text>
         </View>
       </View>
       <View style={styles.borderTop}>
         <Text style={styles.labelText}>Altimetria</Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.dataText}>
-            {formatAltimetria()}
-          </Text>
+          <Text style={styles.dataText}>{formatAltimetria()}</Text>
           <Text style={styles.labelText}> m</Text>
         </View>
       </View>
@@ -199,10 +192,16 @@ const StartComponent = (props) => {
                     </Pressable>
                     <Pressable
                       style={[styles.buttonModal, styles.buttonClose]}
-                      onPress={() => {this.toast.show('Mantenha pressionado', 2000)}}
+                      onPress={() => {
+                        this.toast.show("Mantenha pressionado", 2000);
+                      }}
                       onLongPress={() => handleReset()}
                     >
-                      <IconDelete name="delete" size={30} style={styles.buttonText}/>
+                      <IconDelete
+                        name="delete"
+                        size={30}
+                        style={styles.buttonText}
+                      />
                     </Pressable>
                     <Pressable
                       style={[styles.buttonModal, styles.buttonClose]}
@@ -213,7 +212,12 @@ const StartComponent = (props) => {
                   </View>
                 </View>
               </View>
-              <Toast ref={(toast) => this.toast=toast} position='bottom' opacity={0.8} style={{backgroundColor:'grey'}}/>
+              <Toast
+                ref={(toast) => (this.toast = toast)}
+                position="bottom"
+                opacity={0.8}
+                style={{ backgroundColor: "grey" }}
+              />
             </Modal>
 
             <TouchableOpacity
@@ -265,7 +269,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: theme.colors.primary,
     borderRadius: 7.5,
     margin: 5,
   },
@@ -283,40 +287,40 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   labelText: {
-    color: Colors.lightColor,
+    color: theme.colors.light_color,
     fontFamily: fontRegular,
     fontSize: textSize,
     textAlign: "center",
     paddingVertical: 5,
   },
   dataText: {
-    color: Colors.lightColor,
+    color: theme.colors.light_color,
     fontFamily: fontRegular,
     fontSize: iconSize,
     textAlign: "center",
   },
   borderBottom: {
-    borderTopColor: Colors.primaryColor,
+    borderTopColor: theme.colors.primary,
     borderTopWidth: borderwidth,
     width: "80%",
   },
   borderMiddle: {
-    borderBottomColor: Colors.primaryColor,
+    borderBottomColor: theme.colors.primary,
     borderBottomWidth: borderwidth,
     alignItems: "center",
     width: "80%",
   },
   borderTop: {
-    borderBottomColor: Colors.primaryColor,
+    borderBottomColor: theme.colors.primary,
     borderBottomWidth: borderwidth,
-    alignItems:"center",
+    alignItems: "center",
     width: "80%",
   },
   inputComponent: {
     height: 50,
     width: 250,
     borderRadius: 7.5,
-    backgroundColor: Colors.lightColor,
+    backgroundColor: theme.colors.light_color,
     textAlign: "center",
     margin: 5,
   },
@@ -345,13 +349,13 @@ const styles = StyleSheet.create({
     borderRadius: 7.5,
     elevation: 2,
     paddingHorizontal: 5,
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   buttonOpen: {
     backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: theme.colors.primary,
   },
   textStyle: {
     color: "white",

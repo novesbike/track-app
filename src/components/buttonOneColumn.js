@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Colors from "constants/colors";
+import theme from "styles/theme.styles";
 
 const MainButton = (props) => {
   return (
@@ -14,7 +14,7 @@ const MainButton = (props) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: theme.colors.primary,
     height: 50,
     width: 250,
     borderRadius: 7.5,
