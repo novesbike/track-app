@@ -1,14 +1,10 @@
 import React from "react";
 import { Text, View, StyleSheet, Dimensions, ScrollView } from "react-native";
-
-import Colors from "constants/colors";
-import Fonts from "constants/fonts";
-
 import MapView, { Polyline } from "react-native-maps";
-
+import theme from "styles/theme.styles";
 const { width, height } = Dimensions.get("window");
 
-const fontRegular = Fonts.fontRegular;
+const fontRegular = theme.font.regular;
 const textSize = 18;
 const iconSize = 50;
 const borderwidth = 1.5;
@@ -100,7 +96,7 @@ const RecordDetailScreen = ({ route }) => {
   } = route.params;
 
   return (
-    <ScrollView style={{ backgroundColor: Colors.primaryColorDark }}>
+    <ScrollView style={{ backgroundColor: theme.colors.secondary }}>
       <View style={styles.mapContainer}>
         <MapView
           style={{ height: 250 }}
@@ -110,7 +106,7 @@ const RecordDetailScreen = ({ route }) => {
           <Polyline
             coordinates={ROUTE}
             strokeWidth={3}
-            strokeColor={Colors.primaryColor}
+            strokeColor={theme.colors.primary}
           />
         </MapView>
       </View>
@@ -169,26 +165,26 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,
     elevation: 3,
-    borderColor: Colors.primaryColor,
+    borderColor: theme.colors.primary,
     borderWidth: 1,
   },
   title: {
-    color: Colors.lightColor,
-    fontFamily: fontRegular,
+    color: theme.colors.light_color,
+    fontFamily: theme.font.regular,
     fontSize: iconSize,
     padding: 10,
     // color:"#fff"
   },
   labelText: {
-    color: Colors.lightColor,
-    fontFamily: fontRegular,
+    color: theme.colors.light_color,
+    fontFamily: theme.font.regular,
     fontSize: textSize,
     paddingTop: 10,
     paddingBottom: 5,
     // color:"#fff"
   },
   dataText: {
-    color: Colors.lightColor,
+    color: theme.colors.light_color,
     fontFamily: fontRegular,
     fontSize: textSize,
     paddingBottom: 10,
@@ -196,14 +192,14 @@ const styles = StyleSheet.create({
   },
   borderBottomRight: {
     flex: 1,
-    borderBottomColor: Colors.primaryColor,
-    borderRightColor: Colors.primaryColor,
+    borderBottomColor: theme.colors.primary,
+    borderRightColor: theme.colors.primary,
     borderWidth: borderwidth,
     alignItems: "center",
   },
   borderBottom: {
     flex: 1,
-    borderBottomColor: Colors.primaryColor,
+    borderBottomColor: theme.colors.primary,
     borderWidth: borderwidth,
     alignItems: "center",
   },

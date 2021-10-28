@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Input } from "react-native-elements";
 
-import Colors from "constants/colors";
+import theme from "styles/theme.styles";
 import ButtonMain from "components/buttonMain";
 
 import { CommonActions } from "@react-navigation/native";
@@ -110,7 +110,7 @@ function UpdateProfile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryColorDark,
+    backgroundColor: theme.colors.secondary,
   },
   inputView: {
     flex: 1,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     borderRadius: 7.5,
-    backgroundColor: Colors.lightColor,
+    backgroundColor: theme.colors.secondary,
     marginBottom: 12,
     textAlign: "center",
   },

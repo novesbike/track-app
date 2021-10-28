@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import UserCard from "components/userCard";
 import ButtonOneColumn from "components/buttonOneColumn";
 
-import Colors from "constants/colors";
+import theme from "styles/theme.styles";
 
 import { getUser, getUserEmail } from "services/utils";
 
@@ -77,7 +77,7 @@ function profileScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryColorDark,
+    backgroundColor: theme.colors.secondary,
   },
   buttonsContainer: {
     alignItems: "center",
