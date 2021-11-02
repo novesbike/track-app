@@ -43,11 +43,11 @@ export default StyleSheet.create({
     shadowColor: theme.colors.black,
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: 2,
     },
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
-    elevation: 10,
+    elevation: 5,
   },
 
   divider: {

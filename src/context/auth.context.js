@@ -19,6 +19,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => checkLoggedUser(), []);
 
+  const fakeLogin = () => {
+    const user = {
+      name: "João",
+    };
+    setUser(user);
+    setIsLogged(true);
+  };
+
   const login = async (email, password) => {
     return AuthService.login(email, password).then((data) => {
       setUser(data);
@@ -38,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     setIsError,
     login,
     logout,
+    fakeLogin,
   };
 
   return (

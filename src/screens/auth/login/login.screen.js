@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Alert, Image, StyleSheet, View } from "react-native";
 import LOGO from "assets/noves-logo.png";
 import global from "styles/global.styles";
 import theme from "styles/theme.styles";
+import AuthContext from "context/auth.context";
 
 import Card from "components/auth/card/card.component";
 import InputText from "components/auth/input/input.component";
@@ -20,10 +21,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
+  const { fakeLogin } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +56,7 @@ export default function Login() {
           <LinkToScreen text="Não tem conta? Cadastre-se" to="Register" />
         </View>
 
-        <SubmitButton mode="contained" onPress={() => Alert.alert("logou!!")}>
+        <SubmitButton mode="contained" onPress={fakeLogin}>
           Login
         </SubmitButton>
 

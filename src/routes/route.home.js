@@ -1,7 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { screenOptions } from "./options";
-import OptionsSettings from "components/optionsSettings";
 
 import ProfileScreen from "screens/home/profile/profile.screen";
 import UpdateProfileScreen from "screens/home/profile/updateProfile.screen";
@@ -11,15 +9,8 @@ import ActivityDetailsScreen from "screens/home/activities/activityDetails.scree
 const ProfileStack = createStackNavigator();
 
 export default () => (
-  <ProfileStack.Navigator screenOptions={screenOptions}>
-    <ProfileStack.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={{
-        title: "Home",
-        headerRight: () => <OptionsSettings />,
-      }}
-    />
+  <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+    <ProfileStack.Screen name="Profile" component={ProfileScreen} />
     <ProfileStack.Screen
       name="UpdateProfile"
       component={UpdateProfileScreen}

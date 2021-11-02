@@ -1,88 +1,165 @@
 import React, { useEffect, useState } from "react";
-import { View, Button } from "react-native";
-import { StyleSheet } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Image,
+  Dimensions,
+} from "react-native";
+import Icons from "react-native-vector-icons/Ionicons";
 
-import UserCard from "components/userCard";
-import ButtonOneColumn from "components/buttonOneColumn";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import theme from "styles/theme.styles";
-
-import { getUser, getUserEmail } from "services/utils";
-
-import api from "services/api";
+import globalStyle from "styles/global.styles";
 
 function profileScreen({ navigation }) {
-  const [userEmail, setUserEmail] = useState(
-    getUserEmail().then((email) => {
-      setUserEmail(email);
-    })
-  );
-  const [userId, setUserId] = useState("");
-  const [state, setState] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-  });
-
-  //refresh screen when navigate back
-
-  //DAR GET NO PERFIL, SE NAO ESTIVER CADASTRADO O PERFIL JOGAR PARA CADASTRO DE PERFIL
-
-  useEffect(() => {
-    try {
-      const getUserData = getUser();
-      return getUserData;
-    } catch (e) {
-      console.log("profileScreen getUserError: " + e);
-    }
-  }, [navigation, userEmail]); // when userEmail change re render
-
-  const getUser = () => {
-    if (userEmail.indexOf("@") > -1) {
-      //solve problem when userEmail its not defined yet
-      api
-        .get("/users/by-email?email=" + userEmail) //users/by-email?email=lucas@tw.com URL PARA BUSCAR POR EMAIL
-        .then((response) => {
-          setUserId(response.data.id);
-          if (response.data.firstName === null) {
-            navigation.navigate("RegisterProfile");
-          } else {
-            setState({
-              firstName: response.data.firstName,
-              lastName: response.data.lastName,
-              email: response.data.email,
-            });
-          }
-        });
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <UserCard
-        email={state.email}
-        firstName={state.firstName}
-        lastName={state.lastName}
-      />
-
-      <View style={styles.buttonsContainer}>
-        <ButtonOneColumn onPress={() => navigation.push("RecordList")}>
-          Histórico de Atividades
-        </ButtonOneColumn>
-      </View>
+      <StatusBar animated={true} barStyle="light-content" />
+      <View style={styles.bg}></View>
+      <SafeAreaView style={styles.content}>
+        <View style={styles.profile}>
+          <View>
+            <Image
+              style={styles.avatar}
+              source={require("assets/avatar.jpg")}
+            />
+          </View>
+          <View style={styles.welcome}>
+            <Text
+              style={{
+                color: theme.colors.white,
+                fontFamily: theme.font.light,
+              }}
+            >
+              Bem vindo
+            </Text>
+            <Text style={styles.name}>Joao Nobre</Text>
+          </View>
+          <View>
+            <Icons name={"md-settings"} size={20} color="white" />
+          </View>
+        </View>
+        <View style={[styles.stats, globalStyle.boxShadow]}>
+          <View>
+            <Text style={styles.title}>Minhas estatísticas</Text>
+          </View>
+          <View style={styles.cardContent}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.subtitle}>Tempo total</Text>
+              <Text style={styles.statsValue}>10:30:23</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.subtitle}>Distância total</Text>
+              <View style={styles.rowStats}>
+                <Text style={styles.statsValue}>122</Text>
+                <Text style={styles.km}>km</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
-
+const width = Math.round(Dimensions.get("window").width);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: theme.colors.grey[10],
+    width: width,
   },
-  buttonsContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 15,
+
+  bg: {
+    height: 235,
+    width: "100%",
+    backgroundColor: theme.colors.secondary,
+    borderBottomLeftRadius: theme.spacing(4),
+    borderBottomRightRadius: theme.spacing(4),
+  },
+  content: {
+    flex: 1,
+    position: "absolute",
+    width: "100%",
+    padding: theme.spacing(3),
+  },
+
+  profile: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: `center`,
+    paddingHorizontal: theme.spacing(2),
+    marginTop: theme.spacing(3),
+  },
+
+  avatar: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    borderColor: theme.colors.white,
+    borderWidth: 1,
+  },
+
+  welcome: {
+    flex: 1,
+    padding: theme.spacing(2),
+  },
+
+  name: {
+    color: theme.colors.white,
+    fontFamily: theme.font.regular,
+    fontSize: 20,
+    marginTop: 6,
+  },
+
+  stats: {
+    width: "100%",
+    backgroundColor: theme.colors.white,
+    borderRadius: theme.radius.large,
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(5),
+  },
+
+  title: {
+    color: theme.colors.grey[30],
+    fontFamily: theme.font.medium,
+    marginBottom: theme.spacing(2),
+  },
+
+  cardContent: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  subtitle: {
+    color: theme.colors.grey[30],
+    fontFamily: theme.font.regular,
+    textTransform: "uppercase",
+    fontSize: theme.font.size.small,
+  },
+
+  statsValue: {
+    color: theme.colors.primary,
+    fontSize: theme.font.size.extra_large,
+    fontFamily: theme.font.medium,
+  },
+
+  km: {
+    fontSize: theme.font.size.medium,
+    fontFamily: theme.font.medium,
+    marginBottom: 3,
+    marginLeft: 3,
+    color: theme.colors.primary,
+  },
+
+  rowStats: {
+    flexDirection: "row",
+    alignItems: "flex-end",
   },
 });
 

@@ -69,7 +69,7 @@ export default () => {
   return (
     <NavigationContainer>
       <Root.Navigator headerMode="none">
-        {!isLogged ? (
+        {isLogged ? (
           <Root.Screen
             name="App"
             component={TabBottomScreens}
