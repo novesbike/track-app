@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
 
   title: {
     color: theme.colors.grey[30],
-    fontFamily: theme.font.medium,
+    fontFamily: theme.font.roboto.medium,
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(4),
   },
