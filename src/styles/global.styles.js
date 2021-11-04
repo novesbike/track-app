@@ -16,6 +16,10 @@ export default StyleSheet.create({
     color: theme.colors.grey[40],
     fontSize: theme.font.size.medium,
   },
+
+  textGrey: {
+    color: theme.colors.grey[30],
+  },
   paragraph: {
     marginBottom: theme.spacing(2),
   },
@@ -46,8 +50,8 @@ export default StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 5,
+    shadowRadius: 3,
+    elevation: 4,
   },
 
   divider: {

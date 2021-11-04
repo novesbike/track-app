@@ -22,6 +22,7 @@ const radius = {
 
 const colors = {
   primary: "#FF7300",
+  primaryLight: "#FFD3AF",
   secondary: "#1f3528",
   light_color: "#EEDFC7",
   red: "#f05e5e",

@@ -11,7 +11,7 @@ function Profile() {
       </View>
       <View style={styles.welcome}>
         <Text style={styles.welcomeText}>Bem vindo</Text>
-        <Text style={styles.name}>Joao Nobre</Text>
+        <Text style={styles.name}>João Nobre</Text>
       </View>
       <View>
         <Icons name={"md-settings"} size={20} color="white" />

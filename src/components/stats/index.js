@@ -13,12 +13,12 @@ function CardStats({ totalTime, totalDistance }) {
       <View style={styles.cardContent}>
         <View style={{ flex: 1 }}>
           <Text style={styles.subtitle}>Tempo total</Text>
-          <Text style={styles.statsValue}> {totalTime} </Text>
+          <Text style={styles.statsValue}>{totalTime}</Text>
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.subtitle}>Distância total</Text>
           <View style={styles.rowStats}>
-            <Text style={styles.statsValue}> {totalDistance} </Text>
+            <Text style={styles.statsValue}>{totalDistance.toFixed(1)}</Text>
             <Text style={styles.km}>km</Text>
           </View>
         </View>

@@ -1,21 +1,38 @@
 import React from "react";
-import { View, StyleSheet, StatusBar } from "react-native";
+import { View, StyleSheet, StatusBar, Text, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import theme from "styles/theme.styles";
+import mock from "mocks/myActivities";
 
 import Welcome from "components/profile";
 import CardStats from "components/stats";
+import CardActivity from "components/cardActivity";
+import { ScrollView } from "react-native-gesture-handler";
 
 function profileScreen() {
   return (
-    <View style={styles.container}>
-      <StatusBar animated={true} barStyle="light-content" />
-      <View style={styles.bg}></View>
-      <SafeAreaView style={styles.content}>
-        <Welcome />
-        <CardStats totalTime="10:24:60" totalDistance={125.4} />
-      </SafeAreaView>
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <StatusBar animated={true} barStyle="light-content" />
+
+        <View style={styles.bg}></View>
+        <SafeAreaView style={styles.content}>
+          <Welcome />
+          <CardStats
+            totalTime={mock.total_timing}
+            totalDistance={mock.total_distance}
+          />
+
+          <Text style={styles.title}>Atividades recentes</Text>
+
+          <View style={styles.cards}>
+            {mock.activities.map((activity) => (
+              <CardActivity data={activity} key={activity.id} />
+            ))}
+          </View>
+        </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -38,6 +55,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     padding: theme.spacing(3),
+  },
+
+  title: {
+    color: theme.colors.grey[30],
+    fontFamily: theme.font.medium,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(4),
+  },
+
+  cards: {
+    height: "100%",
   },
 });
 
