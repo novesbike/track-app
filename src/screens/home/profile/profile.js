@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
   bg: {
     position: "absolute",
-    height: 235,
+    height: Platform.OS == "android" ? 192 : 210,
     width: width + 1,
     backgroundColor: theme.colors.secondary,
     borderBottomLeftRadius: theme.spacing(4),
