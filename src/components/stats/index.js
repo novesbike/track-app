@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import theme from "styles/theme.styles";
 import globalStyle from "styles/global.styles";
@@ -7,7 +8,10 @@ import globalStyle from "styles/global.styles";
 function CardStats({ totalTime, totalDistance }) {
   return (
     <View style={[styles.stats, globalStyle.boxShadow]}>
-      <View>
+      <View style={styles.cardTop}>
+        <View>
+          <Ionicons name="stats-chart" size={18} color={theme.colors.primary} />
+        </View>
         <Text style={styles.title}>Minhas estatísticas</Text>
       </View>
       <View style={styles.cardContent}>
@@ -35,11 +39,16 @@ const styles = StyleSheet.create({
     padding: theme.spacing(3),
     marginTop: theme.spacing(5),
   },
-
+  cardTop: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: theme.spacing(2.5),
+  },
   title: {
-    color: theme.colors.grey[30],
-    fontFamily: theme.font.medium,
-    marginBottom: theme.spacing(2),
+    flex: 1,
+    color: theme.colors.grey[25],
+    fontFamily: theme.font.roboto.bold,
+    marginLeft: theme.spacing(1),
   },
 
   cardContent: {
@@ -49,10 +58,11 @@ const styles = StyleSheet.create({
   },
 
   subtitle: {
-    color: theme.colors.grey[30],
-    fontFamily: theme.font.regular,
+    color: theme.colors.grey[25],
+    fontFamily: theme.font.roboto.regular,
     textTransform: "uppercase",
     fontSize: theme.font.size.small,
+    marginBottom: 3,
   },
 
   statsValue: {
@@ -63,10 +73,10 @@ const styles = StyleSheet.create({
 
   km: {
     fontSize: theme.font.size.medium,
-    fontFamily: theme.font.regular,
-    marginBottom: 3,
-    marginLeft: 3,
+    fontFamily: theme.font.roboto.regular,
     color: theme.colors.primary,
+    marginBottom: 3.5,
+    marginLeft: 3,
   },
 
   rowStats: {

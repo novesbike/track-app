@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ProfileScreen from "screens/home/profile/profile.screen";
+import ProfileScreen from "screens/home/profile/profile";
 import UpdateProfileScreen from "screens/home/profile/updateProfile.screen";
 import ActivityListScreen from "screens/home/activities/activityList.screen";
 import ActivityDetailsScreen from "screens/home/activities/activityDetails.screen";

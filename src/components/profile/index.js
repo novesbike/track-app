@@ -1,7 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import Icons from "react-native-vector-icons/Ionicons";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import theme from "styles/theme.styles";
+import { MaterialIcons } from "@expo/vector-icons";
 
 function Profile() {
   return (
@@ -13,9 +20,11 @@ function Profile() {
         <Text style={styles.welcomeText}>Bem vindo</Text>
         <Text style={styles.name}>João Nobre</Text>
       </View>
-      <View>
-        <Icons name={"md-settings"} size={20} color="white" />
-      </View>
+      <TouchableOpacity onPress={() => Alert.alert("sair")}>
+        <View style={styles.icon}>
+          <MaterialIcons name="logout" size={20} color="white" />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -25,15 +34,15 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: `center`,
-    paddingHorizontal: theme.spacing(2),
-    marginTop: theme.spacing(3),
+    alignItems: "center",
+    paddingHorizontal: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 
   avatar: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     borderColor: theme.colors.white,
     borderWidth: 1,
   },
@@ -51,8 +60,11 @@ const styles = StyleSheet.create({
   name: {
     color: theme.colors.white,
     fontFamily: theme.font.regular,
-    fontSize: 20,
-    marginTop: 6,
+    fontSize: 22,
+    marginTop: 5,
+  },
+  icon: {
+    padding: 5,
   },
 });
 

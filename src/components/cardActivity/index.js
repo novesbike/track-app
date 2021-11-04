@@ -10,20 +10,19 @@ function formatDate(value) {
 }
 
 function cardActivity({ data }) {
-  console.log(data);
   return (
-    <TouchableOpacity style={{ marginBottom: 10 }}>
-      <View style={[styles.cardContent, globalStyle.boxShadow]}>
+    <View style={[styles.cardContent, globalStyle.boxShadow]}>
+      <TouchableOpacity>
         <View style={styles.cardTop}>
           <View style={styles.iconBike}>
             <MaterialCommunityIcons
               name="bike"
-              size={24}
+              size={20}
               color={theme.colors.primary}
             />
           </View>
           <View style={styles.cardText}>
-            <Text style={globalStyle.textGrey}>{formatDate(data.date)}</Text>
+            <Text style={styles.date}>{formatDate(data.date)}</Text>
             <Text style={styles.cardTitle}>{data.title}</Text>
           </View>
         </View>
@@ -40,24 +39,48 @@ function cardActivity({ data }) {
             </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   cardContent: {
-    flex: 1,
     justifyContent: "space-between",
     backgroundColor: theme.colors.white,
     borderRadius: theme.radius.small,
+    marginBottom: theme.spacing(1.3),
+  },
+
+  iconBike: {
+    borderWidth: 1,
+    height: 35,
+    width: 35,
+    marginTop: 3,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 22.5,
+    borderColor: theme.colors.primaryLight,
+  },
+
+  date: {
+    color: theme.colors.grey[25],
+    fontFamily: theme.font.roboto.medium,
+    fontSize: theme.font.size.small,
+  },
+
+  cardTitle: {
+    fontFamily: theme.font.roboto.medium,
+    fontSize: theme.font.size.large,
+    color: theme.colors.grey[30],
+    marginTop: 2,
   },
 
   subtitle: {
-    color: theme.colors.grey[30],
-    // fontFamily: theme.font.regular,
+    color: theme.colors.grey[25],
+    fontFamily: theme.font.roboto.regular,
+    fontSize: theme.font.size.small,
     textTransform: "uppercase",
-    fontSize: theme.spacing(1.3),
     marginBottom: 2,
   },
 
@@ -81,30 +104,14 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: theme.radius.small,
   },
 
-  iconBike: {
-    borderWidth: 1,
-    height: 45,
-    width: 45,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 22.5,
-    borderColor: theme.colors.primaryLight,
-  },
-
   cardText: {
     flex: 1,
     marginLeft: theme.spacing(2),
   },
 
-  cardTitle: {
-    fontFamily: theme.font.medium,
-    fontSize: theme.font.size.large,
-    color: theme.colors.grey[30],
-    marginTop: 3,
-  },
-
   number: {
     color: theme.colors.secondary,
+    color: theme.colors.grey[30],
     fontFamily: theme.font.medium,
     fontSize: theme.font.size.large_plus,
   },
@@ -115,11 +122,11 @@ const styles = StyleSheet.create({
   },
 
   km: {
+    color: theme.colors.grey[30],
     fontSize: theme.font.size.small,
-    fontFamily: theme.font.regular,
+    fontFamily: theme.font.roboto.regular,
     marginBottom: 3,
     marginLeft: 3,
-    color: theme.colors.secondary,
   },
 });
 

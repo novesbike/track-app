@@ -25,7 +25,7 @@ const font = {
 };
 
 const radius = {
-  small: 8,
+  small: 10,
   large: 20,
 };
 
@@ -43,6 +43,7 @@ const colors = {
   grey: {
     10: "#FAF9FA",
     20: "#EEEEEE",
+    25: "#A9A9A9",
     30: "#757575",
     40: "#616161",
     50: "#414141",

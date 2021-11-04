@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, StatusBar, Text, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  Text,
+  Dimensions,
+  Platform,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import theme from "styles/theme.styles";
 import mock from "mocks/myActivities";
@@ -9,12 +16,14 @@ import CardStats from "components/stats";
 import CardActivity from "components/cardActivity";
 import { ScrollView } from "react-native-gesture-handler";
 
-const width = Math.round(Dimensions.get("window").width);
-
 function profileScreen() {
   return (
     <View style={styles.container}>
-      <StatusBar animated={true} barStyle="light-content" />
+      <StatusBar
+        animated={true}
+        barStyle="light-content"
+        backgroundColor={theme.colors.secondary}
+      />
 
       <SafeAreaView style={styles.content}>
         <ScrollView>
@@ -39,6 +48,8 @@ function profileScreen() {
     </View>
   );
 }
+const width = Math.round(Dimensions.get("window").width);
+const android = Platform.OS == "android" ? 0 : undefined;
 
 const styles = StyleSheet.create({
   container: {
@@ -65,6 +76,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: theme.spacing(3),
     backgroundColor: theme.colors.grey[10],
+    paddingTop: android,
   },
 
   title: {

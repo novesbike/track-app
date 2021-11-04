@@ -20,6 +20,9 @@ export default StyleSheet.create({
   textGrey: {
     color: theme.colors.grey[30],
   },
+  textPrimary: {
+    color: theme.colors.primary,
+  },
   paragraph: {
     marginBottom: theme.spacing(2),
   },
