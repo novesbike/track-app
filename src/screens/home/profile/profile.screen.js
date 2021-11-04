@@ -9,30 +9,34 @@ import CardStats from "components/stats";
 import CardActivity from "components/cardActivity";
 import { ScrollView } from "react-native-gesture-handler";
 
+const width = Math.round(Dimensions.get("window").width);
+
 function profileScreen() {
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <StatusBar animated={true} barStyle="light-content" />
+    <View style={styles.container}>
+      <StatusBar animated={true} barStyle="light-content" />
 
-        <View style={styles.bg}></View>
-        <SafeAreaView style={styles.content}>
-          <Welcome />
-          <CardStats
-            totalTime={mock.total_timing}
-            totalDistance={mock.total_distance}
-          />
+      <SafeAreaView style={styles.content}>
+        <ScrollView>
+          <View style={styles.contentContainer}>
+            <View style={styles.bg}></View>
+            <Welcome />
+            <CardStats
+              totalTime={mock.total_timing}
+              totalDistance={mock.total_distance}
+            />
 
-          <Text style={styles.title}>Atividades recentes</Text>
+            <Text style={styles.title}>Atividades recentes</Text>
 
-          <View style={styles.cards}>
-            {mock.activities.map((activity) => (
-              <CardActivity data={activity} key={activity.id} />
-            ))}
+            <View style={styles.cards}>
+              {mock.activities.map((activity) => (
+                <CardActivity data={activity} key={activity.id} />
+              ))}
+            </View>
           </View>
-        </SafeAreaView>
-      </View>
-    </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -44,17 +48,23 @@ const styles = StyleSheet.create({
   },
 
   bg: {
+    position: "absolute",
     height: 235,
-    width: "100%",
+    width: width + 1,
     backgroundColor: theme.colors.secondary,
     borderBottomLeftRadius: theme.spacing(4),
     borderBottomRightRadius: theme.spacing(4),
   },
+
   content: {
     flex: 1,
-    position: "absolute",
     width: "100%",
+    backgroundColor: theme.colors.secondary,
+  },
+
+  contentContainer: {
     padding: theme.spacing(3),
+    backgroundColor: theme.colors.grey[10],
   },
 
   title: {

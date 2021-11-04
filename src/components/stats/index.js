@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
   km: {
     fontSize: theme.font.size.medium,
-    fontFamily: theme.font.medium,
+    fontFamily: theme.font.regular,
     marginBottom: 3,
     marginLeft: 3,
     color: theme.colors.primary,

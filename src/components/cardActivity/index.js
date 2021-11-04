@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     color: theme.colors.grey[30],
-    fontFamily: theme.font.regular,
+    // fontFamily: theme.font.regular,
     textTransform: "uppercase",
     fontSize: theme.spacing(1.3),
     marginBottom: 2,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   number: {
     color: theme.colors.secondary,
     fontFamily: theme.font.medium,
-    fontSize: theme.font.size.extra_large,
+    fontSize: theme.font.size.large_plus,
   },
 
   distance: {
@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
   },
 
   km: {
-    fontSize: theme.font.size.large,
-    fontFamily: theme.font.medium,
+    fontSize: theme.font.size.small,
+    fontFamily: theme.font.regular,
     marginBottom: 3,
     marginLeft: 3,
     color: theme.colors.secondary,

@@ -7,6 +7,7 @@ const font = {
     small: 12,
     medium: 14,
     large: 16,
+    large_plus: 20,
     extra_large: 24,
   },
   light: "PlutoLight",
