@@ -34,6 +34,11 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const fakeLogout = () => {
+    setUser(null)
+    setIsLogged(false)
+  }
+
   const logout = () => {
     AuthService.logout();
     setIsLogged(false);
@@ -47,6 +52,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     fakeLogin,
+    fakeLogout,
   };
 
   return (

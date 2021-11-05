@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -9,18 +9,35 @@ import {
 } from "react-native";
 import theme from "styles/theme.styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import AuthContext from "context/auth.context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Profile() {
+  const { fakeLogout } = useContext(AuthContext);
+  const navigation = useNavigation();
+
+  const updateProfileHandler = () => navigation.navigate("UpdateProfile");
+
   return (
     <View style={styles.profile}>
       <View>
-        <Image style={styles.avatar} source={require("assets/avatar.jpg")} />
+        <TouchableOpacity onPress={updateProfileHandler}>
+          <Image style={styles.avatar} source={require("assets/avatar.jpg")} />
+          <View style={styles.editAvatar}>
+            <MaterialCommunityIcons
+              name="pencil"
+              size={14}
+              color={theme.colors.primary}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.welcome}>
         <Text style={styles.welcomeText}>Bem vindo</Text>
         <Text style={styles.name}>João Nobre</Text>
       </View>
-      <TouchableOpacity onPress={() => Alert.alert("sair")}>
+      <TouchableOpacity onPress={fakeLogout}>
         <View style={styles.icon}>
           <MaterialIcons name="logout" size={20} color="white" />
         </View>
@@ -45,6 +62,18 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: theme.colors.white,
     borderWidth: 1,
+  },
+
+  editAvatar: {
+    width: 20,
+    height: 20,
+    backgroundColor: theme.colors.white,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+    position: "absolute",
+    right: -2,
+    bottom: -2,
   },
 
   welcome: {
