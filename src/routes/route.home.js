@@ -1,5 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import HeaderRightButtonProfile from "components/profile/headerRightButton";
+import theme from "styles/theme.styles";
 
 import ProfileScreen from "screens/home/profile/profile";
 import UpdateProfileScreen from "screens/home/profile/editProfile";
@@ -18,6 +20,11 @@ export default () => (
       options={{
         title: "Editar perfil",
         headerShown: true,
+        headerRight: HeaderRightButtonProfile,
+        headerTitleStyle: {
+          fontFamily: theme.font.roboto.bold,
+          fontWeight: "bold",
+        },
       }}
     />
 
@@ -27,6 +34,10 @@ export default () => (
       options={{
         title: "Atualizar senha",
         headerShown: true,
+        headerTitleStyle: {
+          fontFamily: theme.font.roboto.bold,
+          fontWeight: "bold",
+        },
       }}
     />
 

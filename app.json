@@ -13,24 +13,30 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "android":{
-      "package":"com.noves.expo_Noves",
-      "versionCode":1,
-      "config":{
-        "googleMaps":{
-          "apiKey":"AIzaSyCeQqzoyxdcROM7M4qky6jauXIB_bW5z68"
+    "android": {
+      "package": "com.noves.expo_Noves",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCeQqzoyxdcROM7M4qky6jauXIB_bW5z68"
         }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ]
   }
 }

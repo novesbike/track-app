@@ -1,41 +1,37 @@
 import React, { useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "styles/theme.styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Avatar } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import AuthContext from "context/auth.context";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Profile() {
-  const { fakeLogout } = useContext(AuthContext);
+  const { fakeLogout, user } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const updateProfileHandler = () => navigation.navigate("UpdateProfile");
 
   return (
     <View style={styles.profile}>
-      <View>
-        <TouchableOpacity onPress={updateProfileHandler}>
-          <Image style={styles.avatar} source={require("assets/avatar.jpg")} />
-          <View style={styles.editAvatar}>
-            <MaterialCommunityIcons
-              name="pencil"
-              size={14}
-              color={theme.colors.primary}
-            />
-          </View>
-        </TouchableOpacity>
+      <View style={styles.avatar}>
+        <Avatar
+          size="medium"
+          rounded
+          overlayContainerStyle={{
+            backgroundColor: theme.colors.primary,
+            borderColor: theme.colors.white,
+          }}
+          title={user.name.charAt(0)}
+          onPress={updateProfileHandler}
+          source={{ uri: user?.avatar }}
+        >
+          <Avatar.Accessory size={16} />
+        </Avatar>
       </View>
       <View style={styles.welcome}>
         <Text style={styles.welcomeText}>Bem vindo</Text>
-        <Text style={styles.name}>João Nobre</Text>
+        <Text style={styles.name}>{user?.name}</Text>
       </View>
       <TouchableOpacity onPress={fakeLogout}>
         <View style={styles.icon}>
@@ -51,34 +47,20 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
     paddingHorizontal: theme.spacing(1),
     marginTop: theme.spacing(2),
   },
 
   avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderColor: theme.colors.white,
+    alignSelf: "flex-start",
+    borderColor: theme.colors.grey[20],
+    borderRadius: 100,
     borderWidth: 1,
-  },
-
-  editAvatar: {
-    width: 20,
-    height: 20,
-    backgroundColor: theme.colors.white,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 12,
-    position: "absolute",
-    right: -2,
-    bottom: -2,
   },
 
   welcome: {
     flex: 1,
-    padding: theme.spacing(2),
+    paddingHorizontal: theme.spacing(2),
   },
 
   welcomeText: {

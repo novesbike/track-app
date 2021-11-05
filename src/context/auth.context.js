@@ -2,8 +2,14 @@ import React, { createContext, useState, useEffect } from "react";
 import { AuthService } from "services/auth.service.js";
 const AuthContext = createContext({});
 
+const defaultUser = {
+  name: "João Nobre",
+  avatar:
+    "https://img2.gratispng.com/20180625/req/kisspng-computer-icons-avatar-business-computer-software-user-avatar-5b3097fcae25c3.3909949015299112927133.jpg",
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(defaultUser);
   const [isError, setIsError] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
@@ -12,7 +18,6 @@ export const AuthProvider = ({ children }) => {
     const hasUserLoggedIn = !!user && user.token;
 
     if (hasUserLoggedIn) {
-      setUser(user);
       setIsLogged(true);
     }
   }
@@ -20,10 +25,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => checkLoggedUser(), []);
 
   const fakeLogin = () => {
-    const user = {
-      name: "João",
-    };
-    setUser(user);
+    setUser(defaultUser);
     setIsLogged(true);
   };
 
@@ -35,13 +37,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fakeLogout = () => {
-    setUser(null)
-    setIsLogged(false)
-  }
+    setUser(null);
+    setIsLogged(false);
+  };
 
   const logout = () => {
     AuthService.logout();
     setIsLogged(false);
+  };
+
+  const updateProfile = (user) => {
+    setUser(user);
   };
 
   const useContext = {
@@ -51,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     setIsError,
     login,
     logout,
+    updateProfile,
     fakeLogin,
     fakeLogout,
   };

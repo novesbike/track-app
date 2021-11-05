@@ -1,54 +1,49 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import theme from "styles/theme.styles";
 import { Button } from "react-native-paper";
 
 function UpdatePassword() {
-  const [name, setName] = React.useState("João Nobre");
+  const [currentPassword, setCurrentPassword] = React.useState();
+  const [newPassword, setNewPassword] = React.useState();
+  const [confirmPassword, setConfirmPassword] = React.useState();
+
   return (
     <View style={styles.container}>
-      <View style={styles.name}>
+      <View style={styles.passwordArea}>
         <View>
-          <View style={styles.btn}>
-            <Text style={styles.text}>Senha atual</Text>
+          <View style={styles.row}>
+            <Text style={styles.labelInput}>Senha atual</Text>
             <View style={styles.borderInput}>
               <TextInput
-                style={styles.input}
-                onChangeText={setName}
+                style={styles.textInput}
+                value={currentPassword}
+                onChangeText={setCurrentPassword}
                 placeholder={"******"}
-                value={name}
                 secureTextEntry
               />
             </View>
           </View>
-          <View style={styles.btn}>
-            <Text style={styles.text}>Nova senha</Text>
+          <View style={styles.row}>
+            <Text style={styles.labelInput}>Nova senha</Text>
             <View style={styles.borderInput}>
               <TextInput
-                style={styles.input}
-                onChangeText={setName}
-                placeholder={"******"}
-                value={name}
+                style={styles.textInput}
+                value={newPassword}
+                onChangeText={setNewPassword}
+                placeholder={"**********"}
                 secureTextEntry
               />
             </View>
           </View>
-          <View style={styles.btn}>
-            <Text style={styles.text}>Confirmar nova senha</Text>
+          <View style={styles.row}>
+            <Text style={styles.labelInput}>Confirmar nova senha</Text>
             <View style={styles.borderInput}>
               <TextInput
-                style={styles.input}
-                onChangeText={setName}
-                placeholder={"******"}
-                value={name}
+                style={styles.textInput}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder={"**********"}
                 secureTextEntry
               />
             </View>
@@ -74,34 +69,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    paddingHorizontal: theme.spacing(1),
-    paddingTop: theme.spacing(4),
     backgroundColor: "white",
+    padding: theme.spacing(5),
   },
 
-  text: {
-    marginTop: theme.spacing(3),
-    fontFamily: theme.font.roboto.regular,
-    color: theme.colors.grey[30],
-  },
-
-  input: {
-    fontSize: theme.font.size.large,
-    fontFamily: theme.font.roboto.light,
-  },
-
-  name: {
-    flex: 1.2,
+  passwordArea: {
+    flex: 1,
     width: "100%",
-    paddingHorizontal: theme.spacing(5),
     justifyContent: "space-between",
+  },
+
+  row: {
+    marginBottom: theme.spacing(5),
+  },
+
+  labelInput: {
+    fontFamily: theme.font.roboto.medium,
+    fontSize: theme.font.size.large,
+    color: theme.colors.grey[25],
+    marginBottom: 10,
   },
 
   borderInput: {
     borderBottomWidth: 1,
-    borderColor: theme.colors.grey[30],
-    paddingVertical: 8,
+    borderColor: theme.colors.grey[25],
     width: "100%",
+  },
+
+  textInput: {
+    fontSize: theme.font.size.large,
+    paddingVertical: 5,
+    fontFamily: theme.font.roboto.light,
   },
 
   label: {
@@ -109,14 +107,9 @@ const styles = StyleSheet.create({
     fontSize: theme.font.size.medium,
   },
   button: {
-    marginVertical: theme.spacing(5),
     borderRadius: theme.spacing(4),
     borderColor: theme.colors.primary,
     borderWidth: 0.5,
-  },
-
-  btn: {
-    marginBottom: theme.spacing(1),
   },
 });
 
