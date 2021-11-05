@@ -7,7 +7,7 @@ export const openLibrary = async () => {
 
     if (status !== "granted") {
       Alert.alert(
-        "Desculpe, nós precisamos da sua permissão para acessar sua biblioteca!"
+        "Desculpe, nós precisamos da sua permissão para acessar a sua biblioteca!"
       );
 
       return null;
@@ -33,7 +33,7 @@ export const openCamera = async () => {
 
     if (status !== "granted") {
       Alert.alert(
-        "Desculpe, nós precisamos da sua permissão para acessar sua biblioteca!"
+        "Desculpe, nós precisamos da sua permissão para acessar a sua camera!"
       );
 
       return null;
