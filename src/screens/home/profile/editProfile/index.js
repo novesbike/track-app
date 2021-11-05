@@ -115,9 +115,11 @@ function editProfile() {
         <View>
           <View style={styles.borderInput}>
             <TextInput
+              value={name}
+              autoCorrect={false}
               style={styles.input}
               onChangeText={setName}
-              value={name}
+              underlineColorAndroid="transparent"
             />
           </View>
           <Text style={styles.text}>Pode ser seu nome ou apelido</Text>
