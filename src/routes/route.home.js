@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { HeaderBackButton } from "@react-navigation/stack";
 import HeaderRightButtonProfile from "components/profile/headerRightButton";
 import theme from "styles/theme.styles";
 
@@ -20,11 +21,19 @@ export default () => (
       options={{
         title: "Editar perfil",
         headerShown: true,
+        headerRightContainerStyle: { width: "20%" },
         headerRight: HeaderRightButtonProfile,
         headerTitleStyle: {
           fontFamily: theme.font.roboto.bold,
           fontWeight: "bold",
         },
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            label="Home"
+            tintColor={theme.colors.black}
+          />
+        ),
       }}
     />
 
@@ -38,6 +47,13 @@ export default () => (
           fontFamily: theme.font.roboto.bold,
           fontWeight: "bold",
         },
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            label="Perfil"
+            tintColor={theme.colors.black}
+          />
+        ),
       }}
     />
 
