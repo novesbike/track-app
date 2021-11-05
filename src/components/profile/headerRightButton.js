@@ -3,12 +3,10 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { MaterialIcons } from "@expo/vector-icons";
-import AuthContext from "context/auth.context";
 import theme from "styles/theme.styles";
 
 function editProfile() {
   const navigation = useNavigation();
-  const { fakeLogout } = React.useContext(AuthContext);
   const { showActionSheetWithOptions } = useActionSheet();
 
   const updatePasswordHandler = () => navigation.navigate("UpdatePassword");
@@ -32,9 +30,6 @@ function editProfile() {
         switch (index) {
           case 0:
             updatePasswordHandler();
-            break;
-          case 1:
-            fakeLogout();
             break;
           default:
             break;
