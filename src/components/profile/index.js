@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "styles/theme.styles";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -24,14 +24,14 @@ function Profile() {
           }}
           title={user.name.charAt(0)}
           onPress={updateProfileHandler}
-          source={user?.avatar ? { uri: user.avatar } : false}
+          source={user.avatar && { uri: user.avatar }}
         >
           <Avatar.Accessory size={16} />
         </Avatar>
       </View>
       <View style={styles.welcome}>
         <Text style={styles.welcomeText}>Bem vindo</Text>
-        <Text style={styles.name}>{user?.name}</Text>
+        <Text style={styles.name}>{user.name}</Text>
       </View>
       <TouchableOpacity onPress={logout}>
         <View style={styles.icon}>

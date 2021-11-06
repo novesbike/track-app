@@ -22,10 +22,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => checkLoggedUser(), []);
 
   const login = (email, password) => {
-    return AuthService.login(email, password).then((response) => {
-      setUser(response);
-      setIsLogged(true);
-    });
+    return AuthService.login(email, password)
+      .then((response) => {
+        setUser(response);
+        setIsLogged(true);
+      })
+      .catch((err) => Alert.alert(err));
   };
 
   const logout = () => {

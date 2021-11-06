@@ -112,7 +112,7 @@ function editProfile() {
           }}
           title={user.name.charAt(0)}
           onPress={openActionSheet}
-          source={avatar ? { uri: avatar } : false}
+          source={avatar && { uri: avatar }}
         />
         <TouchableOpacity style={{ marginTop: 10 }} onPress={openActionSheet}>
           <Text style={styles.text}>Trocar de foto</Text>

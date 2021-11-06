@@ -29,15 +29,10 @@ export default function Login() {
   const [loading, setloading] = useState(false);
   const { login } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    try {
-      setloading(true);
-      login(email, password);
-    } catch (err) {
-      Alert.alert(err);
-    } finally {
-      setloading(false);
-    }
+  const handleLogin = async () => {
+    setloading(true);
+    login(email, password);
+    setloading(false);
   };
 
   return (
@@ -80,7 +75,7 @@ export default function Login() {
             mode="contained"
             onPress={handleLogin}
           >
-            Login
+            {!loading ? "Login" : ""}
           </SubmitButton>
 
           <SocialButtons text="entre com" />
