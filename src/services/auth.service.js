@@ -1,5 +1,6 @@
 import api from "./api";
-import { AsyncStorage } from "@react-native-async-storage/async-storage";
+import jwt_decode from "jwt-decode";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PREFIX = "@NovesBike";
 
@@ -17,15 +18,20 @@ export const AuthService = {
    */
   login: (email, password) => {
     return new Promise((resolve, reject) => {
+      console.log(email, password);
       api
-        .post("/login", { email, password })
+        .post("auth/login", { email, password })
         .then(({ data }) => {
-          AsyncStorage.setItem(PREFIX, JSON.stringify(data));
+          const { user } = jwt_decode(data.token);
 
+          AsyncStorage.setItem(PREFIX, data.token);
           setHeaderAuthorization(data.token);
-          resolve(data);
+          resolve(user);
         })
-        .catch(() => reject("Credenciais inválidas"));
+        .catch((error) => {
+          console.log(error);
+          reject("Credenciais inválidas");
+        });
     });
   },
   getLoggedUser: async () => {
@@ -43,6 +49,15 @@ export const AuthService = {
   logout: async () => {
     await AsyncStorage.removeItem(PREFIX);
     setHeaderAuthorization(null);
+  },
+
+  createAccount: async ({ name, email, password }) => {
+    return new Promise((resolve, reject) => {
+      api
+        .post("v1/users/register", { name, email, password })
+        .then(({ data }) => resolve(data))
+        .catch(({ response }) => reject(response.data.message));
+    });
   },
 };
 

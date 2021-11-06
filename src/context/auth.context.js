@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { AuthService } from "services/auth.service.js";
+import api from "../services/api";
 const AuthContext = createContext({});
 
 const defaultUser = {
@@ -29,8 +30,9 @@ export const AuthProvider = ({ children }) => {
     setIsLogged(true);
   };
 
-  const login = async (email, password) => {
+  const login = (email, password) => {
     return AuthService.login(email, password).then((data) => {
+      console.log(data);
       setUser(data);
       setIsLogged(true);
     });
@@ -50,6 +52,10 @@ export const AuthProvider = ({ children }) => {
     setUser(user);
   };
 
+  const register = ({ name, email, password }) => {
+    return AuthService.createAccount({ name, email, password });
+  };
+
   const useContext = {
     user,
     isLogged,
@@ -60,6 +66,7 @@ export const AuthProvider = ({ children }) => {
     updateProfile,
     fakeLogin,
     fakeLogout,
+    register,
   };
 
   return (

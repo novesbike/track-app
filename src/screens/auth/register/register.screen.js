@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Alert, Image, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import LOGO from "assets/noves-logo.png";
 import global from "styles/global.styles";
 import theme from "styles/theme.styles";
@@ -9,7 +10,7 @@ import InputText from "components/auth/input/input.component";
 import SocialButtons from "components/auth/buttons/socialbutton.component";
 import SubmitButton from "components/auth/buttons/submit.component";
 import LinkToScreen from "components/link-to-screen/linkToScreen.component";
-import { SafeAreaView } from "react-native-safe-area-context";
+import AuthContext from "context/auth.context";
 
 const styles = StyleSheet.create({
   container: {
@@ -27,11 +28,28 @@ const styles = StyleSheet.create({
 });
 
 export default function Register() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const { register } = useContext(AuthContext);
+
+  const [fullName, setFullName] = useState("Thiago Alves");
+  const [email, setEmail] = useState("teste@teste.com");
+  const [password, setPassword] = useState("teste@123");
+  const [confirmPassword, setConfirmPassword] = useState("teste@123");
   const [hidePassword, setHidePassword] = useState(true);
+
+  const handleRegister = async () => {
+    const account = {
+      name: fullName,
+      email: email,
+      password: password,
+    };
+
+    try {
+      await register(account);
+      Alert.alert("Usuário Cadastrado");
+    } catch (err) {
+      Alert.alert(err);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,10 +97,7 @@ export default function Register() {
           <LinkToScreen text="Já possui conta? Faça login" to="Login" />
         </View>
 
-        <SubmitButton
-          mode="contained"
-          onPress={() => Alert.alert("cadastrou!!")}
-        >
+        <SubmitButton mode="contained" onPress={handleRegister}>
           Cadastrar
         </SubmitButton>
 

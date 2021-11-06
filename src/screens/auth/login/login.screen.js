@@ -22,10 +22,22 @@ const styles = StyleSheet.create({
 });
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("teste@teste.com");
+  const [password, setPassword] = useState("teste@123");
   const [hidePassword, setHidePassword] = useState(true);
-  const { fakeLogin } = useContext(AuthContext);
+  const [loading, setloading] = useState(false);
+  const { login } = useContext(AuthContext);
+
+  const handleLogin = async () => {
+    try {
+      setloading(true);
+      await login(email, password);
+    } catch (err) {
+      Alert.alert(err);
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +68,7 @@ export default function Login({ navigation }) {
           <LinkToScreen text="Não tem conta? Cadastre-se" to="Register" />
         </View>
 
-        <SubmitButton mode="contained" onPress={fakeLogin}>
+        <SubmitButton loading={loading} mode="contained" onPress={handleLogin}>
           Login
         </SubmitButton>
 

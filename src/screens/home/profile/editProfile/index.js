@@ -102,9 +102,13 @@ function editProfile() {
         <Avatar
           rounded
           size="xlarge"
+          overlayContainerStyle={{
+            backgroundColor: theme.colors.primary,
+            borderColor: theme.colors.white,
+          }}
           title={user.name.charAt(0)}
           onPress={openActionSheet}
-          source={{ uri: avatar }}
+          source={avatar ? { uri: avatar } : false}
         />
         <TouchableOpacity style={{ marginTop: 10 }} onPress={openActionSheet}>
           <Text style={styles.text}>Trocar de foto</Text>

@@ -24,7 +24,7 @@ function Profile() {
           }}
           title={user.name.charAt(0)}
           onPress={updateProfileHandler}
-          source={{ uri: user?.avatar }}
+          source={user?.avatar ? { uri: user.avatar } : false}
         >
           <Avatar.Accessory size={16} />
         </Avatar>
