@@ -1,46 +1,31 @@
 import React, { createContext, useState, useEffect } from "react";
+import { Alert } from "react-native";
 import { AuthService } from "services/auth.service.js";
-import api from "../services/api";
+import * as User from "services/profile/profile.service";
 const AuthContext = createContext({});
 
-const defaultUser = {
-  name: "João Nobre",
-  avatar:
-    "https://img2.gratispng.com/20180625/req/kisspng-computer-icons-avatar-business-computer-software-user-avatar-5b3097fcae25c3.3909949015299112927133.jpg",
-};
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(defaultUser);
+  const [user, setUser] = useState(null);
   const [isError, setIsError] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
   async function checkLoggedUser() {
-    const user = AuthService.getLoggedUser();
-    const hasUserLoggedIn = !!user && user.token;
+    const user = await AuthService.getLoggedUser();
+    const hasUserLoggedIn = !!user;
 
     if (hasUserLoggedIn) {
+      setUser(user);
       setIsLogged(true);
     }
   }
 
   useEffect(() => checkLoggedUser(), []);
 
-  const fakeLogin = () => {
-    setUser(defaultUser);
-    setIsLogged(true);
-  };
-
   const login = (email, password) => {
-    return AuthService.login(email, password).then((data) => {
-      console.log(data);
-      setUser(data);
+    return AuthService.login(email, password).then((response) => {
+      setUser(response);
       setIsLogged(true);
     });
-  };
-
-  const fakeLogout = () => {
-    setUser(null);
-    setIsLogged(false);
   };
 
   const logout = () => {
@@ -48,8 +33,9 @@ export const AuthProvider = ({ children }) => {
     setIsLogged(false);
   };
 
-  const updateProfile = (user) => {
-    setUser(user);
+  const updateProfile = async (form) => {
+    const result = await User.updateProfile(form);
+    setUser(result);
   };
 
   const register = ({ name, email, password }) => {
@@ -64,8 +50,6 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     updateProfile,
-    fakeLogin,
-    fakeLogout,
     register,
   };
 

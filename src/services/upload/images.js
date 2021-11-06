@@ -24,7 +24,7 @@ export const openLibrary = async () => {
     return null;
   }
 
-  return result.uri;
+  return result;
 };
 
 export const openCamera = async () => {
@@ -50,5 +50,5 @@ export const openCamera = async () => {
     return null;
   }
 
-  return result.uri;
+  return result;
 };

@@ -4,8 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PREFIX = "@NovesBike";
 
-//{token:String,user:object}
-
 export const AuthService = {
   /**
    * LOGIN: faz comunicação com a api e salva em um storage
@@ -18,7 +16,6 @@ export const AuthService = {
    */
   login: (email, password) => {
     return new Promise((resolve, reject) => {
-      console.log(email, password);
       api
         .post("auth/login", { email, password })
         .then(({ data }) => {
@@ -36,12 +33,13 @@ export const AuthService = {
   },
   getLoggedUser: async () => {
     try {
-      let user = await AsyncStorage.getItem(PREFIX);
-      let parse = JSON.parse(user);
+      let token = await AsyncStorage.getItem(PREFIX);
+      if (!token) return false;
 
-      if (!parse.token) return false;
-      setHeaderAuthorization(parse.token);
-      return parse.user;
+      const { user } = jwt_decode(token);
+
+      setHeaderAuthorization(token);
+      return user;
     } catch (error) {
       return false;
     }

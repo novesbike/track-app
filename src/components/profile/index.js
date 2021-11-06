@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import AuthContext from "context/auth.context";
 
 function Profile() {
-  const { fakeLogout, user } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const updateProfileHandler = () => navigation.navigate("UpdateProfile");
@@ -33,7 +33,7 @@ function Profile() {
         <Text style={styles.welcomeText}>Bem vindo</Text>
         <Text style={styles.name}>{user?.name}</Text>
       </View>
-      <TouchableOpacity onPress={fakeLogout}>
+      <TouchableOpacity onPress={logout}>
         <View style={styles.icon}>
           <MaterialIcons name="logout" size={20} color="white" />
         </View>

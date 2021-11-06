@@ -3,21 +3,19 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   TextInput,
   StatusBar,
-  Alert,
 } from "react-native";
-import theme from "styles/theme.styles";
-import { Button } from "react-native-paper";
+import { openCamera, openLibrary } from "services/upload/images";
 import { useNavigation } from "@react-navigation/native";
-import { Avatar } from "react-native-elements";
-import Constants from "expo-constants";
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Button } from "react-native-paper";
+import { Avatar } from "react-native-elements";
 import AuthContext from "context/auth.context";
-import { openCamera, openLibrary } from "services/upload/images";
+import Constants from "expo-constants";
+import theme from "styles/theme.styles";
 
 function editProfile() {
   const navigation = useNavigation();
@@ -26,29 +24,35 @@ function editProfile() {
   const [loading, setLoading] = React.useState(false);
   const [name, setName] = React.useState();
   const [avatar, setAvatar] = React.useState();
+  const [attach, setAttach] = React.useState();
 
   React.useLayoutEffect(() => {
     setName(user.name);
     setAvatar(user.avatar);
   }, [user]);
 
-  const updateAccountProfile = () => {
-    setLoading(true);
-    setTimeout(() => {
-      updateProfile({ name: name, avatar: avatar });
-      setLoading(false);
+  const updateAccountProfile = async () => {
+    try {
+      setLoading(true);
+      await updateProfile({ avatar: attach, name: name, id: user.id });
       navigation.navigate("Profile");
-    }, 2000);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const camera = async () => {
     const result = await openCamera();
-    setAvatar(result);
+    setAttach(result);
+    setAvatar(result.uri);
   };
 
   const library = async () => {
     const result = await openLibrary();
-    setAvatar(result);
+    setAttach(result);
+    setAvatar(result.uri);
   };
 
   const openActionSheet = () => {
