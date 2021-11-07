@@ -1,9 +1,8 @@
 import api from "./api";
-import { AsyncStorage } from "@react-native-async-storage/async-storage";
+import jwt_decode from "jwt-decode";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PREFIX = "@NovesBike";
-
-//{token:String,user:object}
 
 export const AuthService = {
   /**
@@ -18,24 +17,34 @@ export const AuthService = {
   login: (email, password) => {
     return new Promise((resolve, reject) => {
       api
-        .post("/login", { email, password })
+        .post("auth/login", { email, password })
         .then(({ data }) => {
-          AsyncStorage.setItem(PREFIX, JSON.stringify(data));
+          const { user } = jwt_decode(data.token);
 
+          const userWithToken = {
+            ...user,
+            token: data.token,
+          };
+
+          AsyncStorage.setItem(PREFIX, JSON.stringify(userWithToken));
           setHeaderAuthorization(data.token);
-          resolve(data);
+          resolve(userWithToken);
         })
-        .catch(() => reject("Credenciais inválidas"));
+        .catch(({ response }) => {
+          console.log(response?.data);
+          reject(response?.data?.message);
+        });
     });
   },
   getLoggedUser: async () => {
     try {
       let user = await AsyncStorage.getItem(PREFIX);
-      let parse = JSON.parse(user);
+      if (!user) return false;
 
-      if (!parse.token) return false;
-      setHeaderAuthorization(parse.token);
-      return parse.user;
+      const parsed = JSON.parse(user);
+
+      setHeaderAuthorization(parsed);
+      return parsed;
     } catch (error) {
       return false;
     }
@@ -43,6 +52,18 @@ export const AuthService = {
   logout: async () => {
     await AsyncStorage.removeItem(PREFIX);
     setHeaderAuthorization(null);
+  },
+
+  createAccount: ({ name, email, password }) => {
+    return new Promise((resolve, reject) => {
+      api
+        .post("v1/users/register", { name, email, password })
+        .then(({ data }) => resolve(data))
+        .catch(({ response }) => {
+          console.log(response?.data);
+          reject(response?.data?.message);
+        });
+    });
   },
 };
 

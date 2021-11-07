@@ -7,7 +7,16 @@ const font = {
     small: 12,
     medium: 14,
     large: 16,
+    large_plus: 20,
     extra_large: 24,
+  },
+  roboto: {
+    thin: "roboto-thin",
+    light: "roboto-light",
+    italic: "roboto-italic",
+    regular: "roboto-regular",
+    medium: "roboto-medium",
+    bold: "roboto-bold",
   },
   light: "PlutoLight",
   regular: "PlutoRegular",
@@ -16,12 +25,13 @@ const font = {
 };
 
 const radius = {
-  small: 8,
+  small: 10,
   large: 20,
 };
 
 const colors = {
   primary: "#FF7300",
+  primaryLight: "#FFD3AF",
   secondary: "#1f3528",
   light_color: "#EEDFC7",
   red: "#f05e5e",
@@ -33,6 +43,7 @@ const colors = {
   grey: {
     10: "#FAF9FA",
     20: "#EEEEEE",
+    25: "#A9A9A9",
     30: "#757575",
     40: "#616161",
     50: "#414141",

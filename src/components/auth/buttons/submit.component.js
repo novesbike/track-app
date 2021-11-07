@@ -14,7 +14,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SubmitButton({ children, onPress = () => {} }) {
+export default function SubmitButton({
+  children,
+  loading,
+  onPress = () => {},
+}) {
   return (
     <Button
       dark
@@ -24,6 +28,7 @@ export default function SubmitButton({ children, onPress = () => {} }) {
       labelStyle={styles.label}
       style={styles.button}
       onPress={onPress}
+      loading={loading}
     >
       {children}
     </Button>

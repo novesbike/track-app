@@ -19,9 +19,8 @@ const TabBottomScreens = () => (
   <Tab.Navigator
     tabBarOptions={{
       activeTintColor: theme.colors.primary,
-      style: {
-        paddingBottom: 3,
-      },
+      style: { paddingBottom: 1 },
+      labelStyle: { bottom: 4 },
     }}
   >
     <Tab.Screen
@@ -69,7 +68,7 @@ export default () => {
   return (
     <NavigationContainer>
       <Root.Navigator headerMode="none">
-        {!isLogged ? (
+        {isLogged ? (
           <Root.Screen
             name="App"
             component={TabBottomScreens}

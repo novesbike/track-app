@@ -11,6 +11,12 @@ const App = () => {
   Font.loadAsync({
     "open-sans": require("assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("assets/fonts/OpenSans-Bold.ttf"),
+    "roboto-thin": require("assets/fonts/Roboto-Thin.ttf"),
+    "roboto-light": require("assets/fonts/Roboto-Light.ttf"),
+    "roboto-italic": require("assets/fonts/Roboto-Italic.ttf"),
+    "roboto-regular": require("assets/fonts/Roboto-Regular.ttf"),
+    "roboto-medium": require("assets/fonts/Roboto-Medium.ttf"),
+    "roboto-bold": require("assets/fonts/Roboto-Bold.ttf"),
     PlutoLight: require("assets/fonts/PlutoLight.otf"),
     PlutoRegular: require("assets/fonts/PlutoRegular.otf"),
     PlutoMedium: require("assets/fonts/PlutoMedium.otf"),
@@ -18,7 +24,7 @@ const App = () => {
   }).then(() => {
     setCustomText({
       style: {
-        fontFamily: "open-sans",
+        fontFamily: "roboto-light",
       },
     });
 

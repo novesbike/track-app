@@ -1,32 +1,62 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { screenOptions } from "./options";
-import OptionsSettings from "components/optionsSettings";
+import { HeaderBackButton } from "@react-navigation/stack";
+import HeaderRightButtonProfile from "components/profile/headerRightButton";
+import theme from "styles/theme.styles";
 
-import ProfileScreen from "screens/home/profile/profile.screen";
-import UpdateProfileScreen from "screens/home/profile/updateProfile.screen";
+import ProfileScreen from "screens/home/profile/profile";
+import UpdateProfileScreen from "screens/home/profile/editProfile";
+import UpdatePasswordScreen from "screens/home/profile/updatePassword";
 import ActivityListScreen from "screens/home/activities/activityList.screen";
 import ActivityDetailsScreen from "screens/home/activities/activityDetails.screen";
 
 const ProfileStack = createStackNavigator();
 
 export default () => (
-  <ProfileStack.Navigator screenOptions={screenOptions}>
-    <ProfileStack.Screen
-      name="Profile"
-      component={ProfileScreen}
-      options={{
-        title: "Home",
-        headerRight: () => <OptionsSettings />,
-      }}
-    />
+  <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+    <ProfileStack.Screen name="Profile" component={ProfileScreen} />
     <ProfileStack.Screen
       name="UpdateProfile"
       component={UpdateProfileScreen}
       options={{
-        title: "Cadastro de Perfil",
+        title: "Editar perfil",
+        headerShown: true,
+        headerRightContainerStyle: { width: "20%" },
+        headerRight: HeaderRightButtonProfile,
+        headerTitleStyle: {
+          fontFamily: theme.font.roboto.bold,
+          fontWeight: "bold",
+        },
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            label="Home"
+            tintColor={theme.colors.black}
+          />
+        ),
       }}
     />
+
+    <ProfileStack.Screen
+      name="UpdatePassword"
+      component={UpdatePasswordScreen}
+      options={{
+        title: "Atualizar senha",
+        headerShown: true,
+        headerTitleStyle: {
+          fontFamily: theme.font.roboto.bold,
+          fontWeight: "bold",
+        },
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            label="Perfil"
+            tintColor={theme.colors.black}
+          />
+        ),
+      }}
+    />
+
     <ProfileStack.Screen
       name="RecordList"
       component={ActivityListScreen}
