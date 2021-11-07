@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (form) => {
     const result = await User.updateProfile(form);
-    setUser(result);
+    setUser((user) => ({ ...user, ...result }));
   };
 
   const register = ({ name, email, password }) => {

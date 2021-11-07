@@ -46,6 +46,8 @@ export const openCamera = async () => {
     aspect: [4, 3],
   });
 
+  console.log(result);
+
   if (result.cancelled || !result.uri) {
     return null;
   }

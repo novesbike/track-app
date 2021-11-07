@@ -45,14 +45,20 @@ function editProfile() {
 
   const camera = async () => {
     const result = await openCamera();
-    setAttach(result);
-    setAvatar(result.uri);
+
+    if (result) {
+      setAttach(result);
+      setAvatar(result.uri);
+    }
   };
 
   const library = async () => {
     const result = await openLibrary();
-    setAttach(result);
-    setAvatar(result.uri);
+
+    if (result) {
+      setAttach(result);
+      setAvatar(result.uri);
+    }
   };
 
   const openActionSheet = () => {
@@ -112,7 +118,14 @@ function editProfile() {
           }}
           title={user.name.charAt(0)}
           onPress={openActionSheet}
-          source={avatar && { uri: avatar }}
+          source={
+            avatar && {
+              uri: avatar,
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          }
         />
         <TouchableOpacity style={{ marginTop: 10 }} onPress={openActionSheet}>
           <Text style={styles.text}>Trocar de foto</Text>

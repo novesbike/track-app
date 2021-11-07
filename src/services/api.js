@@ -1,10 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-import { Alert } from "react-native";
+const baseURL =
+  "http://ec2-18-228-173-142.sa-east-1.compute.amazonaws.com/api/";
 
-// PROD ou DEV
-const baseURL = "http://192.168.100.17:8080/api/";
 console.log("Current .env baseURL address: %s", baseURL);
 
 const api = axios.create({ baseURL });

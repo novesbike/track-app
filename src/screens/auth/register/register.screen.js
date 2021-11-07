@@ -14,7 +14,7 @@ import SubmitButton from "components/auth/buttons/submit.component";
 import LinkToScreen from "components/link-to-screen/linkToScreen.component";
 
 export default function Register() {
-  const { register } = useContext(AuthContext);
+  const { register, login } = useContext(AuthContext);
 
   const [fullName, setFullName] = useState("Thiago Alves");
   const [email, setEmail] = useState("teste@teste.com");

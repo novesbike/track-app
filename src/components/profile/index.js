@@ -24,7 +24,14 @@ function Profile() {
           }}
           title={user.name.charAt(0)}
           onPress={updateProfileHandler}
-          source={user.avatar && { uri: user.avatar }}
+          source={
+            user.avatar && {
+              uri: user.avatar,
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          }
         >
           <Avatar.Accessory size={16} />
         </Avatar>

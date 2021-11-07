@@ -21,25 +21,30 @@ export const AuthService = {
         .then(({ data }) => {
           const { user } = jwt_decode(data.token);
 
-          AsyncStorage.setItem(PREFIX, data.token);
+          const userWithToken = {
+            ...user,
+            token: data.token,
+          };
+
+          AsyncStorage.setItem(PREFIX, JSON.stringify(userWithToken));
           setHeaderAuthorization(data.token);
-          resolve(user);
+          resolve(userWithToken);
         })
-        .catch((error) => {
-          console.log(error);
-          reject("Credenciais inválidas");
+        .catch(({ response }) => {
+          console.log(response?.data);
+          reject(response?.data?.message);
         });
     });
   },
   getLoggedUser: async () => {
     try {
-      let token = await AsyncStorage.getItem(PREFIX);
-      if (!token) return false;
+      let user = await AsyncStorage.getItem(PREFIX);
+      if (!user) return false;
 
-      const { user } = jwt_decode(token);
+      const parsed = JSON.parse(user);
 
-      setHeaderAuthorization(token);
-      return user;
+      setHeaderAuthorization(parsed);
+      return parsed;
     } catch (error) {
       return false;
     }
@@ -49,12 +54,15 @@ export const AuthService = {
     setHeaderAuthorization(null);
   },
 
-  createAccount: async ({ name, email, password }) => {
+  createAccount: ({ name, email, password }) => {
     return new Promise((resolve, reject) => {
       api
         .post("v1/users/register", { name, email, password })
         .then(({ data }) => resolve(data))
-        .catch(({ response }) => reject(response.data.message));
+        .catch(({ response }) => {
+          console.log(response?.data);
+          reject(response?.data?.message);
+        });
     });
   },
 };
