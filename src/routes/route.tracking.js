@@ -11,7 +11,7 @@ export default () => (
     <TrackStack.Screen
       name="MapScreen"
       component={MapScreen}
-      options={{ title: "Circuito" }}
+      options={{ headerShown: false }}
     />
   </TrackStack.Navigator>
 );
