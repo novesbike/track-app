@@ -19,12 +19,15 @@ export const AuthService = {
       api
         .post("auth/login", { email, password })
         .then(({ data }) => {
-          const { user } = jwt_decode(data.token);
+          const { user, sub: email } = jwt_decode(data.token);
 
           const userWithToken = {
             ...user,
+            email,
             token: data.token,
           };
+
+          console.log(userWithToken);
 
           AsyncStorage.setItem(PREFIX, JSON.stringify(userWithToken));
           setHeaderAuthorization(data.token);
