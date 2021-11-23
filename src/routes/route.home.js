@@ -2,13 +2,14 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HeaderBackButton } from "@react-navigation/stack";
 import HeaderRightButtonProfile from "components/profile/headerRightButton";
+import DeleteActivity from "components/activity/headerRightButton";
 import theme from "styles/theme.styles";
 
 import ProfileScreen from "screens/home/profile/profile";
 import UpdateProfileScreen from "screens/home/profile/editProfile";
 import UpdatePasswordScreen from "screens/home/profile/updatePassword";
 import ActivityListScreen from "screens/home/activities/activityList.screen";
-import ActivityDetailsScreen from "screens/home/activities/activityDetails.screen";
+import ActivityDetailsScreen from "screens/home/activities/activity.screen";
 
 const ProfileStack = createStackNavigator();
 
@@ -66,10 +67,23 @@ export default () => (
     />
 
     <ProfileStack.Screen
-      name="RecordDetail"
+      name="ActivityDetail"
       component={ActivityDetailsScreen}
       options={{
         title: "Detalhes da atividade",
+        headerShown: true,
+        headerTitleStyle: {
+          fontFamily: theme.font.roboto.bold,
+          fontWeight: "bold",
+        },
+        headerRight: DeleteActivity,
+        headerLeft: (props) => (
+          <HeaderBackButton
+            {...props}
+            label="Home"
+            tintColor={theme.colors.black}
+          />
+        ),
       }}
     />
   </ProfileStack.Navigator>

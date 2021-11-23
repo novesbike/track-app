@@ -4,15 +4,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import theme from "styles/theme.styles";
 import globalStyle from "styles/global.styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 function formatDate(value) {
   return value.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1");
 }
 
 function cardActivity({ data }) {
+  const navigation = useNavigation();
+
+  const goToDetail = () => {
+    return navigation.navigate("ActivityDetail");
+  };
+
   return (
     <View style={[styles.cardContent, globalStyle.boxShadow]}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goToDetail}>
         <View style={styles.cardTop}>
           <View style={styles.iconBike}>
             <MaterialCommunityIcons
