@@ -36,7 +36,7 @@ function cardActivity({ data }) {
         <View style={styles.cardBottom}>
           <View style={{ flex: 1 }}>
             <Text style={styles.subtitle}>Duração</Text>
-            <Text style={styles.number}>{data.timing}</Text>
+            <Text style={styles.number}>{data.duration}</Text>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.subtitle}>Distância percorrida</Text>

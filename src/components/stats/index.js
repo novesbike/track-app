@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import theme from "styles/theme.styles";
 import globalStyle from "styles/global.styles";
 
-function CardStats({ totalTime, totalDistance }) {
+function CardStats({ totalTime, totalDistance, totalAverageSpeed }) {
   return (
     <View style={[styles.stats, globalStyle.boxShadow]}>
       <View style={styles.cardTop}>
@@ -16,15 +16,26 @@ function CardStats({ totalTime, totalDistance }) {
       </View>
       <View style={styles.cardContent}>
         <View style={{ flex: 1 }}>
-          <Text style={styles.subtitle}>Tempo total</Text>
-          <Text style={styles.statsValue}>{totalTime}</Text>
+          <Text style={styles.subtitle}>Velocidade média</Text>
+          {
+            totalAverageSpeed ? (
+              <View style={styles.rowStats}>
+                <Text style={styles.statsValue}>{totalAverageSpeed}</Text>
+                <Text style={styles.km}>km/h</Text>
+              </View>
+            ): <Text style={styles.statsValue}>-</Text>
+          }
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.subtitle}>Distância total</Text>
-          <View style={styles.rowStats}>
-            <Text style={styles.statsValue}>{totalDistance.toFixed(1)}</Text>
-            <Text style={styles.km}>km</Text>
-          </View>
+          {
+            totalDistance ? (
+              <View style={styles.rowStats}>
+                <Text style={styles.statsValue}>{totalDistance}</Text>
+                <Text style={styles.km}>km</Text>
+              </View>
+            ): <Text style={styles.statsValue}>-</Text>
+          }
         </View>
       </View>
     </View>
