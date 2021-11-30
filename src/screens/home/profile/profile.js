@@ -47,7 +47,7 @@ function profileScreen() {
       />
 
       <SafeAreaView style={styles.content}>
-        <ScrollView>
+        <ScrollView style={styles.scroll}>
           <View style={styles.contentContainer}>
             <View style={styles.bg}></View>
             <Welcome />
@@ -93,6 +93,11 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     backgroundColor: theme.colors.secondary,
+  },
+
+  scroll: {
+    flex:1,
+    backgroundColor: theme.colors.grey[10]
   },
 
   contentContainer: {
