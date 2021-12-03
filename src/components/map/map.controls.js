@@ -4,23 +4,22 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import theme from "styles/theme.styles";
+import { LocationContext } from "context/location.context";
 
 export default function PanelScreen({ route }) {
+  const { timer, start, stop, clear } = React.useContext(LocationContext);
   const navigation = useNavigation();
-  const [play, setPlay] = React.useState(false);
-  const [recording, setRecording] = React.useState(false);
 
   const handlePlay = () => {
-    if (!recording) {
-      setRecording(true);
+    if (timer.isPaused || !timer.isActive) {
+      start();
+    } else {
+      stop();
     }
-
-    setPlay(!play);
   };
 
   const handleFinish = () => {
-    setRecording(false);
-    setPlay(false);
+    return clear();
   };
 
   const handleNavigate = () => {
@@ -38,26 +37,30 @@ export default function PanelScreen({ route }) {
         <TouchableOpacity
           style={[
             styles.button,
-            recording && { borderColor: theme.colors.primary },
+            timer.isActive && { borderColor: theme.colors.primary },
           ]}
           onPress={handleFinish}
         >
           <MaterialIcons
             name="stop"
             size={45}
-            color={recording ? theme.colors.primary : theme.colors.grey[20]}
+            color={
+              timer.isActive ? theme.colors.primary : theme.colors.grey[20]
+            }
           />
         </TouchableOpacity>
       </View>
 
       <View style={styles.buttonArea}>
-        <Text style={styles.text}>{play ? "PAUSAR" : "INICIAR"}</Text>
+        <Text style={styles.text}>
+          {timer.isPaused || !timer.isActive ? "INICIAR" : "PAUSAR"}
+        </Text>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: theme.colors.primary }]}
           onPress={handlePlay}
         >
           <MaterialIcons
-            name={play ? "pause" : "play-arrow"}
+            name={timer.isPaused || !timer.isActive ? "play-arrow" : "pause"}
             size={45}
             color={theme.colors.white}
           />
