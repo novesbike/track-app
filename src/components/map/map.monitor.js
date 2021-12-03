@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Platform } from "react-native";
 import { LocationContext } from "context/location.context";
 import theme from "styles/theme.styles";
+const ios = Platform.OS === "ios" ? 40 : 20;
 
 export default function Monitor() {
   const {
@@ -22,7 +23,9 @@ export default function Monitor() {
     <>
       <View style={styles.container}>
         <View style={[styles.row]}>
-          <View style={[styles.display, { alignItems: "center" }]}>
+          <View
+            style={[styles.display, { alignItems: "center", paddingTop: ios }]}
+          >
             <Text style={styles.subtitle}>cronometro</Text>
             <View style={styles.row}>
               <Text style={[styles.cronometro]}>{timer.cronometro}</Text>

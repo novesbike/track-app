@@ -14,6 +14,7 @@ import Controls from "components/map/map.controls";
 import Monitor from "components/map/map.monitor";
 import Panel from "components/panel/panel.monitor";
 import { LocationProvider } from "context/location.context";
+import { SafeAreaView } from "react-native-safe-area-context";
 const width = Math.round(Dimensions.get("window").width);
 
 export default function MapScreen(props) {
