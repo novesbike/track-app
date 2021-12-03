@@ -8,7 +8,7 @@ const useTracking = () => {
 
   const countRef = useRef(null);
 
-  const start = () => {
+  const play = () => {
     setIsActive(true);
     setIsPaused(false);
     countRef.current = setInterval(() => {
@@ -19,13 +19,6 @@ const useTracking = () => {
   const pause = () => {
     clearInterval(countRef.current);
     setIsPaused(true);
-  };
-
-  const resume = () => {
-    setIsPaused(false);
-    countRef.current = setInterval(() => {
-      setTimer((timer) => timer + 1);
-    }, 1000);
   };
 
   const stop = () => {
@@ -42,9 +35,8 @@ const useTracking = () => {
   };
 
   return {
-    start,
+    play,
     pause,
-    resume,
     stop,
     isActive,
     isPaused,
