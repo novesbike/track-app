@@ -1,38 +1,22 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, Dimensions, Image, Platform } from "react-native";
 import MapView, {
   Marker,
   Polyline,
   AnimatedRegion,
   PROVIDER_GOOGLE,
 } from "react-native-maps";
-import * as Location from "expo-location";
-import * as TaskManager from "expo-task-manager";
-import _ from "lodash";
-import haversine from "haversine";
-import useTimer from "../../hooks/useTimer";
 import mapStyle from "styles/mapStyle.json";
 import bike from "assets/bike.png";
+import { LocationContext } from "context/location.context";
+const screen = Dimensions.get("window");
 
-const TASK_FETCH_LOCATION = "TASK_FETCH_LOCATION";
-const LATITUDE_DELTA = 0.009;
-const LONGITUDE_DELTA = 0.009;
-
-const defaultCircuit = {
-  circuitOn: false,
-  prevLatLng: {},
-  coordinates: [],
-  distanceTravelled: 0,
-  averageSpeed: 0,
-  elevation: 0,
-  altitude: 0,
-  speed: 0,
-};
+const ASPECT_RATIO = screen.width / screen.height;
+const LATITUDE_DELTA = 0.0322;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default function App(props) {
-  const cronometro = useTimer();
-  const [circuit, setCircuit] = React.useState(defaultCircuit);
-
+  const { circuit } = React.useContext(LocationContext);
   const [userLocation] = React.useState(
     new AnimatedRegion({
       latitude: props.latitude,
@@ -42,62 +26,17 @@ export default function App(props) {
     })
   );
 
-  React.useEffect(async () => {
-    await Location.startLocationUpdatesAsync(TASK_FETCH_LOCATION, {
-      accuracy: Location.Accuracy.BestForNavigation,
-      activityType: Location.ActivityType.Fitness,
-      showsBackgroundLocationIndicator: true,
-      deferredUpdatesInterval: 1000,
-      distanceInterval: 1,
-      timeInterval: 1000,
-      foregroundService: {
-        notificationTitle: "Noves Bike",
-        notificationBody: "O aplicativo está sendo executado em segundo plano",
-      },
-    });
-
-    return () => Location.stopLocationUpdatesAsync(TASK_FETCH_LOCATION);
-  }, []);
-
-  TaskManager.defineTask(
-    TASK_FETCH_LOCATION,
-    async ({ data: { locations }, error }) => {
-      if (error) return;
-
-      const {
-        timestamp,
-        coords: { latitude, longitude, altitude, speed },
-      } = locations[0];
-      const { coordinates, distanceTravelled } = circuit;
-
-      const newCoordinate = {
-        latitude,
-        longitude,
-        timestamp,
-      };
-
-      onChangeMarker(newCoordinate);
-
-      if (true) {
-        setCircuit({
-          ...circuit,
-          coordinates: coordinates.concat([newCoordinate]),
-          distanceTravelled:
-            distanceTravelled + calcDistance(newCoordinate, "meter"),
-          prevLatLng: newCoordinate,
-          averageSpeed: calcAvgSpeed(distanceTravelled),
-          altitude,
-          speed,
-        });
-      }
+  React.useEffect(() => {
+    if (circuit.prevLatLng) {
+      updateUserLocation(circuit.prevLatLng);
     }
-  );
+  }, [circuit]);
 
   /**
    * Atualiza o marcador com a localização atual do usuário
    * @param {*} newCoordinate
    */
-  const onChangeMarker = (newCoordinate) => {
+  const updateUserLocation = (newCoordinate) => {
     userLocation.timing(newCoordinate).start();
   };
 
@@ -112,75 +51,18 @@ export default function App(props) {
     longitudeDelta: LONGITUDE_DELTA,
   });
 
-  /**
-   * Calcula a distância entre duas coordenadas utilizando a formula de Haversine
-   * unit: km, mile, meter, nmi
-   * @param {*} newLatLng
-   * @param {*} unit
-   * @returns float
-   */
-  const calcDistance = (newLatLng, unit = "meter") => {
-    const { prevLatLng } = circuit;
-    return haversine(prevLatLng, newLatLng, { unit }) || 0;
-  };
-
-  /**
-   * Calcula a velocidade média percorrida
-   * @param {*} distanceTravelled
-   * @returns float
-   */
-  const calcAvgSpeed = (distanceTravelled) => {
-    return parseFloat(distanceTravelled / cronometro.timer) || 0;
-  };
-
-  /**
-   * Sinaliza para gravar dados no circuito
-   * @returns
-   */
-  const startCircuit = () => {
-    if (circuit.circuitOn) return;
-
-    setCircuit({
-      ...circuit,
-      circuitOn: true,
-    });
-  };
-
-  /**
-   * Sinaliza para de impedir de receber novos dados
-   * @returns
-   */
-  const stopCircuit = () => {
-    if (circuit.circuitOn) {
-      setCircuit({
-        ...circuit,
-        circuitOn: false,
-      });
-    }
-  };
-
-  /**
-   * Reinicia o circuito com dados padrão
-   * @returns
-   */
-  const resetCircuit = () => {
-    setCircuit(defaultCircuit);
-  };
-
-  const controlCircuit = {
-    start: startCircuit,
-    stop: stopCircuit,
-    clear: resetCircuit,
-  };
-
   return (
     <MapView
       style={styles.map}
-      customMapStyle={mapStyle}
+      // customMapStyle={mapStyle}
       provider={PROVIDER_GOOGLE}
       loadingEnabled
       initialRegion={getMapRegion()}
     >
+      <Marker.Animated coordinate={userLocation} anchor={{ x: 0.5, y: 0.5 }}>
+        <Image source={bike} />
+      </Marker.Animated>
+
       <Polyline
         lineDashPattern={[1]}
         lineCap={"square"}
@@ -188,10 +70,6 @@ export default function App(props) {
         strokeWidth={6}
         strokeColor="#f2b659"
       />
-
-      <Marker.Animated coordinate={userLocation} anchor={{ x: 0.5, y: 0.5 }}>
-        <Image source={bike} />
-      </Marker.Animated>
     </MapView>
   );
 }
