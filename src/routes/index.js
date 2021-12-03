@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { navigationRef } from "services/navigation";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "../context/auth.context";
 import theme from "styles/theme.styles";
@@ -66,7 +67,7 @@ export default () => {
   const { isLogged } = useContext(AuthContext);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Root.Navigator headerMode="none">
         {isLogged ? (
           <Root.Screen

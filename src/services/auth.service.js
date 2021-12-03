@@ -46,7 +46,9 @@ export const AuthService = {
 
       const parsed = JSON.parse(user);
 
-      setHeaderAuthorization(parsed);
+      if (!parsed?.token) return false;
+      setHeaderAuthorization(parsed.token);
+
       return parsed;
     } catch (error) {
       return false;
