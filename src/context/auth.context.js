@@ -9,17 +9,18 @@ export const AuthProvider = ({ children }) => {
   const [isError, setIsError] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
-  async function checkLoggedUser() {
-    const user = await AuthService.getLoggedUser();
-    const hasUserLoggedIn = !!user;
+  useEffect(() => {
+    async function checkLoggedUser() {
+      const user = await AuthService.getLoggedUser();
+      const hasUserLoggedIn = !!user;
 
-    if (hasUserLoggedIn) {
-      setUser(user);
-      setIsLogged(true);
+      if (hasUserLoggedIn) {
+        setUser(user);
+        setIsLogged(true);
+      }
     }
-  }
-
-  useEffect(() => checkLoggedUser(), []);
+    checkLoggedUser();
+  }, []);
 
   const login = (email, password) => {
     return AuthService.login(email, password)
