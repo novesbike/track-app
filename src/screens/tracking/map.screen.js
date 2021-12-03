@@ -5,19 +5,22 @@ import {
   Text,
   Dimensions,
   ActivityIndicator,
+  Modal,
+  Pressable,
 } from "react-native";
 import Map from "components/map/map";
 import * as Location from "expo-location";
 import Controls from "components/map/map.controls";
 import Monitor from "components/map/map.monitor";
+import Panel from "components/panel/panel.monitor";
 import { LocationProvider } from "context/location.context";
-
 const width = Math.round(Dimensions.get("window").width);
 
 export default function MapScreen(props) {
   const [ready, setReady] = React.useState(false);
   const [location, setLocation] = React.useState(null);
   const [errorMsg, setErrorMsg] = React.useState(null);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   React.useEffect(() => {
     async function getPermissions() {
@@ -67,8 +70,23 @@ export default function MapScreen(props) {
         <Monitor />
         <Map {...location} />
         <View style={[styles.controls]}>
-          <Controls {...props} />
+          <Controls {...props} panel={() => setModalVisible(!modalVisible)} />
         </View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          statusBarTranslucent
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <Panel>
+              <Controls panel={() => setModalVisible(!modalVisible)} />
+            </Panel>
+          </View>
+        </Modal>
       </View>
     </LocationProvider>
   );
@@ -93,6 +111,7 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 20,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
 
@@ -104,5 +123,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 10,
+  },
+  centeredView: {
+    flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

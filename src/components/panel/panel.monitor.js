@@ -1,49 +1,64 @@
 import * as React from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { LocationContext } from "context/location.context";
 import theme from "styles/theme.styles";
-import Controls from "components/map/map.controls";
-
 const width = Math.round(Dimensions.get("window").width);
 
-export default function PanelScreen() {
+export default function Panel({ children }) {
+  const { circuit, timer } = React.useContext(LocationContext);
+
+  const isMeter = circuit.distanceTravelled < 1000;
+
+  const distance = {
+    value: isMeter
+      ? circuit.distanceTravelled.toFixed(0)
+      : (circuit.distanceTravelled / 1000).toFixed(2),
+    unit: isMeter ? "m" : "km",
+  };
+
+  const recordingText = () => {
+    if (timer.isActive) {
+      return timer.isPaused ? "PAUSADO" : "GRAVANDO";
+    } else return "";
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.text}>{recordingText()}</Text>
+      </View>
       <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={[styles.text]}>GRAVANDO</Text>
-        </View>
-
         <View style={styles.cronometro}>
           <Text style={styles.title}>CRONÔMETRO</Text>
-          <Text style={styles.cronometroText}>01:10:57</Text>
+          <Text style={styles.cronometroText}>{timer.cronometro}</Text>
         </View>
         <View style={styles.row}>
           <View style={styles.left}>
             <Text style={styles.title}>VELOCIDADE ATUAL</Text>
-            <Text style={styles.number}>11.4</Text>
-            <Text style={styles.metric}>Km/h</Text>
+            <Text style={styles.number}>{circuit.speed.toFixed(2)}</Text>
+            <Text style={styles.metric}>km/h</Text>
           </View>
           <View style={styles.right}>
             <Text style={styles.title}>VELOCIDADE MÉDIA</Text>
-            <Text style={styles.number}>10.2</Text>
-            <Text style={styles.metric}>Km/h</Text>
+            <Text style={styles.number}>{circuit.averageSpeed.toFixed(2)}</Text>
+            <Text style={styles.metric}>km/h</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <View style={styles.left}>
             <Text style={styles.title}>DISTÂNCIA PERCORRIDA</Text>
-            <Text style={styles.number}>12.2</Text>
-            <Text style={styles.metric}>Km</Text>
+            <Text style={styles.number}>{distance.value}</Text>
+            <Text style={styles.metric}>{distance.unit}</Text>
           </View>
           <View style={styles.right}>
             <Text style={styles.title}>ALTIMETRIA</Text>
-            <Text style={styles.number}>5.49</Text>
-            <Text style={styles.metric}>M</Text>
+            <Text style={styles.number}>{circuit.altimetria || 0}</Text>
+            <Text style={styles.metric}>m</Text>
           </View>
         </View>
       </View>
-      <Controls />
+      <View style={styles.footer}>{children}</View>
     </View>
   );
 }
@@ -56,14 +71,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  content: {
-    flex: 1,
+  header: {
     width: "100%",
     alignItems: "center",
     padding: 20,
   },
-  header: {
+  content: {
     flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  footer: {
+    width: width,
+    padding: 20,
+    flexDirection: "row",
   },
   text: {
     marginBottom: 10,

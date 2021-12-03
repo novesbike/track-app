@@ -1,14 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import theme from "styles/theme.styles";
 import { LocationContext } from "context/location.context";
 
-export default function PanelScreen({ route }) {
+export default function PanelScreen({ panel }) {
   const { timer, start, stop, clear } = React.useContext(LocationContext);
-  const navigation = useNavigation();
 
   const handlePlay = () => {
     if (timer.isPaused || !timer.isActive) {
@@ -22,19 +20,11 @@ export default function PanelScreen({ route }) {
     return clear();
   };
 
-  const handleNavigate = () => {
-    if (route?.name === "MapScreen") {
-      return navigation.navigate("PanelScreen");
-    } else {
-      return navigation.navigate("MapScreen");
-    }
-  };
-
   return (
     <View style={[styles.controls]}>
       <View style={styles.buttonArea}>
         <Text style={styles.text}>FINALIZAR</Text>
-        <TouchableOpacity
+        <Pressable
           style={[
             styles.button,
             timer.isActive && { borderColor: theme.colors.primary },
@@ -48,14 +38,14 @@ export default function PanelScreen({ route }) {
               timer.isActive ? theme.colors.primary : theme.colors.grey[20]
             }
           />
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.buttonArea}>
         <Text style={styles.text}>
           {timer.isPaused || !timer.isActive ? "INICIAR" : "PAUSAR"}
         </Text>
-        <TouchableOpacity
+        <Pressable
           style={[styles.button, { backgroundColor: theme.colors.primary }]}
           onPress={handlePlay}
         >
@@ -64,21 +54,21 @@ export default function PanelScreen({ route }) {
             size={45}
             color={theme.colors.white}
           />
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.buttonArea}>
         <Text style={styles.text}>PAINEL</Text>
-        <TouchableOpacity
+        <Pressable
           style={[styles.button, { borderColor: theme.colors.secondary }]}
-          onPress={handleNavigate}
+          onPress={panel}
         >
           <MaterialIcons
             name={"map"}
             size={45}
             color={theme.colors.secondary}
           />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -86,10 +76,11 @@ export default function PanelScreen({ route }) {
 
 const styles = StyleSheet.create({
   controls: {
+    flex: 1,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     padding: 20,
   },
   buttonArea: {

@@ -41,7 +41,7 @@ export default function Monitor() {
         ></View>
         <View style={[styles.row]}>
           <View style={[styles.display]}>
-            <Text style={styles.subtitle}>velocidade atual</Text>
+            <Text style={styles.subtitle}>velocidade média</Text>
             <View style={styles.row}>
               <View style={styles.box}>
                 <Text style={styles.label}>{averageSpeed.toFixed(2)}</Text>
