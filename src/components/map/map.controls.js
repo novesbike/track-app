@@ -1,12 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import theme from "styles/theme.styles";
 import { LocationContext } from "context/location.context";
 
-export default function PanelScreen({ panel }) {
-  const { timer, start, stop, clear } = React.useContext(LocationContext);
+export default function PanelScreen({ panel, finish = () => {} }) {
+  const { timer, start, stop, clear, circuit } =
+    React.useContext(LocationContext);
 
   const handlePlay = () => {
     if (timer.isPaused || !timer.isActive) {
@@ -17,7 +17,29 @@ export default function PanelScreen({ panel }) {
   };
 
   const handleFinish = () => {
-    return clear();
+    if (!timer.isActive) {
+      return false;
+    } else {
+      stop();
+    }
+
+    Alert.alert(
+      "Atividade Finalizada",
+      "Deseja salvar o percurso percorrido?",
+      [
+        {
+          text: "Não",
+          onPress: clear,
+          style: "cancel",
+        },
+        {
+          text: "Sim",
+          onPress: () => {
+            return finish({ ...circuit, duration: timer.cronometro });
+          },
+        },
+      ]
+    );
   };
 
   return (

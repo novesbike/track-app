@@ -19,6 +19,8 @@ export default function Monitor() {
     unit: isMeter ? "m" : "km",
   };
 
+  const average_speed = averageSpeed;
+
   return (
     <>
       <View style={styles.container}>
@@ -47,8 +49,8 @@ export default function Monitor() {
             <Text style={styles.subtitle}>velocidade média</Text>
             <View style={styles.row}>
               <View style={styles.box}>
-                <Text style={styles.label}>{averageSpeed.toFixed(2)}</Text>
-                <Text style={styles.measurement}>m/s</Text>
+                <Text style={styles.label}>{average_speed.toFixed(2)}</Text>
+                <Text style={styles.measurement}>km/h</Text>
               </View>
             </View>
           </View>

@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Login() {
-  const [email, setEmail] = useState("teste@teste.com");
-  const [password, setPassword] = useState("teste@123");
+  const [email, setEmail] = useState("customer@admin.com");
+  const [password, setPassword] = useState("12345678");
   const [hidePassword, setHidePassword] = useState(true);
   const [loading, setloading] = useState(false);
   const { login } = useContext(AuthContext);

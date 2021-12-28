@@ -1,11 +1,31 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import api from "services/api";
 
 import theme from "styles/theme.styles";
 import globalStyle from "styles/global.styles";
 
-function CardStats({ totalTime, totalDistance, totalAverageSpeed }) {
+function CardStats() {
+  const [stats, setStats] = React.useState({});
+
+  React.useEffect(() => {
+    async function fetch() {
+      const response = await api.get("v1/activities/stats");
+      setStats(response.data);
+    }
+    fetch();
+  }, []);
+
+  const isMeter = stats.total_distance < 1000;
+
+  const distance = {
+    value: isMeter
+      ? stats.total_distance.toFixed(0)
+      : (stats.total_distance / 1000).toFixed(2),
+    unit: isMeter ? "m" : "km",
+  };
+
   return (
     <View style={[styles.stats, globalStyle.boxShadow]}>
       <View style={styles.cardTop}>
@@ -17,25 +37,27 @@ function CardStats({ totalTime, totalDistance, totalAverageSpeed }) {
       <View style={styles.cardContent}>
         <View style={{ flex: 1 }}>
           <Text style={styles.subtitle}>Velocidade média</Text>
-          {
-            totalAverageSpeed ? (
-              <View style={styles.rowStats}>
-                <Text style={styles.statsValue}>{totalAverageSpeed}</Text>
-                <Text style={styles.km}>km/h</Text>
-              </View>
-            ): <Text style={styles.statsValue}>-</Text>
-          }
+          {stats?.total_average_speed ? (
+            <View style={styles.rowStats}>
+              <Text style={styles.statsValue}>
+                {stats.total_average_speed.toFixed(2)}
+              </Text>
+              <Text style={styles.km}>km/h</Text>
+            </View>
+          ) : (
+            <Text style={styles.statsValue}>-</Text>
+          )}
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.subtitle}>Distância total</Text>
-          {
-            totalDistance ? (
-              <View style={styles.rowStats}>
-                <Text style={styles.statsValue}>{totalDistance}</Text>
-                <Text style={styles.km}>km</Text>
-              </View>
-            ): <Text style={styles.statsValue}>-</Text>
-          }
+          {stats?.total_distance ? (
+            <View style={styles.rowStats}>
+              <Text style={styles.statsValue}>{distance.value}</Text>
+              <Text style={styles.km}>{distance.unit}</Text>
+            </View>
+          ) : (
+            <Text style={styles.statsValue}>-</Text>
+          )}
         </View>
       </View>
     </View>

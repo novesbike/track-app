@@ -7,18 +7,26 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  ActivityIndicator,
 } from "react-native";
-import MapView, { Geojson } from "react-native-maps";
 import theme from "styles/theme.styles";
+import api from "services/api";
 
-const location = {
-  latitude: -25.540794,
-  longitude: -54.5832818,
-  latitudeDelta: 0.01,
-  longitudeDelta: 0.02,
-};
+import Info from "components/cardActivity/info";
+import Map from "components/cardActivity/map";
 
-export default function App() {
+export default function Activity(props) {
+  const { id } = props.route.params;
+  const [activityDetail, setActivityDetail] = React.useState();
+
+  React.useEffect(() => {
+    async function getActivity() {
+      const res = await api.get(`v1/activities/${id}`);
+      setActivityDetail(res.data);
+    }
+    getActivity();
+  }, []);
+
   return (
     <>
       <StatusBar
@@ -28,60 +36,28 @@ export default function App() {
       />
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>Treino de Terça</Text>
+          <Text style={styles.title}>{activityDetail?.title}</Text>
         </View>
         <ScrollView>
-          <View>
-            <MapView style={styles.mapContainer} region={location}>
-              <Geojson
-                lineDashPattern={[0]}
-                lineCap="round"
-                geojson={BrazilGeojson}
-                fillColor="red"
-                strokeColor={theme.colors.primary}
-                strokeWidth={2}
-              />
-            </MapView>
+          <View style={styles.mapContainer}>
+            {activityDetail?.coordinates ? (
+              <Map coordinates={activityDetail?.coordinates} />
+            ) : (
+              <ActivityIndicator size="large" color="orange" />
+            )}
           </View>
           <View style={styles.moreInfo}>
-            <View style={styles.info}>
-              <Text style={styles.date}>13/07/2021</Text>
-              <View style={styles.row}>
-                <View style={styles.boxInfo}>
-                  <Text style={styles.subtitleInfo}>DURAÇÃO</Text>
-                  <Text style={styles.textInfo}>1:23:32</Text>
-                </View>
-                <View style={styles.boxInfo}>
-                  <Text style={styles.subtitleInfo}>DISTÂNCIA PERCORRIDA</Text>
-                  <View style={styles.row}>
-                    <Text style={styles.textInfo}>11.4</Text>
-                    <Text style={styles.measure}>km</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.row}>
-                <View style={styles.boxInfo}>
-                  <Text style={styles.subtitleInfo}>VELOCIDADE MÉDIA</Text>
-                  <View style={styles.row}>
-                    <Text style={styles.textInfo}>8.4</Text>
-                    <Text style={styles.measure}>km/h</Text>
-                  </View>
-                </View>
-                <View style={styles.boxInfo}>
-                  <Text style={styles.subtitleInfo}>ALTIMETRIA</Text>
-                  <View style={styles.row}>
-                    <Text style={styles.textInfo}>8.2</Text>
-                    <Text style={styles.measure}>metros</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+            <Info
+              date={activityDetail?.created_at}
+              duration={activityDetail?.duration}
+              distance={activityDetail?.distance}
+              average_speed={activityDetail?.average_speed}
+              altimetria={activityDetail?.altimetry}
+            />
             <View style={styles.label}>
               <Text style={styles.subtitle}>Descrição</Text>
               <Text style={styles.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
+                {activityDetail?.description || "sem descrição"}
               </Text>
             </View>
           </View>
@@ -100,7 +76,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
   },
   mapContainer: {
-    height: 260,
+    height: 200,
+    alignItems: "center",
+    justifyContent: "center",
   },
   moreInfo: {
     flex: 1,

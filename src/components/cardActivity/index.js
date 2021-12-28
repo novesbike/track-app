@@ -7,14 +7,23 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 function formatDate(value) {
-  return value.replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1");
+  return value.split("T")[0].replace(/(\d{4})-(\d{2})-(\d{2})/, "$3/$2/$1");
 }
 
 function cardActivity({ data }) {
   const navigation = useNavigation();
 
   const goToDetail = () => {
-    return navigation.navigate("ActivityDetail");
+    return navigation.navigate("ActivityDetail", { id: data.id });
+  };
+
+  const isMeter = data.distance < 1000;
+
+  const distance = {
+    value: isMeter
+      ? data.distance.toFixed(0)
+      : (data.distance / 1000).toFixed(2),
+    unit: isMeter ? "m" : "km",
   };
 
   return (
@@ -29,7 +38,7 @@ function cardActivity({ data }) {
             />
           </View>
           <View style={styles.cardText}>
-            <Text style={styles.date}>{formatDate(data.date)}</Text>
+            <Text style={styles.date}>{formatDate(data.created_at)}</Text>
             <Text style={styles.cardTitle}>{data.title}</Text>
           </View>
         </View>
@@ -41,8 +50,8 @@ function cardActivity({ data }) {
           <View style={{ flex: 1 }}>
             <Text style={styles.subtitle}>Distância percorrida</Text>
             <View style={styles.distance}>
-              <Text style={styles.number}>{data.distance.toFixed(1)}</Text>
-              <Text style={styles.km}>km</Text>
+              <Text style={styles.number}>{distance.value}</Text>
+              <Text style={styles.km}>{distance.unit}</Text>
             </View>
           </View>
         </View>

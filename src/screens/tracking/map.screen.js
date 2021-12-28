@@ -6,7 +6,6 @@ import {
   Dimensions,
   ActivityIndicator,
   Modal,
-  Pressable,
 } from "react-native";
 import Map from "components/map/map";
 import * as Location from "expo-location";
@@ -14,7 +13,6 @@ import Controls from "components/map/map.controls";
 import Monitor from "components/map/map.monitor";
 import Panel from "components/panel/panel.monitor";
 import { LocationProvider } from "context/location.context";
-import { SafeAreaView } from "react-native-safe-area-context";
 const width = Math.round(Dimensions.get("window").width);
 
 export default function MapScreen(props) {
@@ -65,13 +63,21 @@ export default function MapScreen(props) {
     );
   }
 
+  const finishTrack = (circuit) => {
+    props.navigation.navigate("FinishTrackScreen", { circuit });
+  };
+
   return (
     <LocationProvider>
       <View style={styles.container}>
         <Monitor />
         <Map {...location} />
         <View style={[styles.controls]}>
-          <Controls {...props} panel={() => setModalVisible(!modalVisible)} />
+          <Controls
+            finish={finishTrack}
+            {...props}
+            panel={() => setModalVisible(!modalVisible)}
+          />
         </View>
         <Modal
           animationType="slide"
@@ -84,7 +90,10 @@ export default function MapScreen(props) {
         >
           <View style={styles.centeredView}>
             <Panel>
-              <Controls panel={() => setModalVisible(!modalVisible)} />
+              <Controls
+                finish={finishTrack}
+                panel={() => setModalVisible(!modalVisible)}
+              />
             </Panel>
           </View>
         </Modal>

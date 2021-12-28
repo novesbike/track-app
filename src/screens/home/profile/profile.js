@@ -4,12 +4,11 @@ import {
   StyleSheet,
   StatusBar,
   Text,
-  Dimensions,
   Platform,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import theme from "styles/theme.styles";
-import mock from "mocks/myActivities";
 import api from "services/api";
 
 import Welcome from "components/profile";
@@ -17,26 +16,19 @@ import CardStats from "components/stats";
 import CardActivity from "components/cardActivity";
 import { ScrollView } from "react-native-gesture-handler";
 
-function profileScreen() {
+function profileScreen(props) {
+  const { params } = props.route;
   const [activities, setActivities] = React.useState([]);
-  const [stats, setStats] = React.useState(null);
 
   React.useEffect(() => {
     function getActivities() {
       api
-        .get("v1/activities/me")
-        .then((res) => {
-          const { activities } = res.data;
-          setActivities(activities);
-          setStats({
-            total_distance: res.data.total_distance,
-            total_average_speed: res.data.total_average_speed,
-          });
-        })
+        .get("v1/activities")
+        .then((res) => setActivities(res.data))
         .catch(console.error);
     }
     getActivities();
-  }, []);
+  }, [params]);
 
   return (
     <View style={styles.container}>
@@ -51,11 +43,7 @@ function profileScreen() {
           <View style={styles.contentContainer}>
             <View style={styles.bg}></View>
             <Welcome />
-            <CardStats
-              // totalTime={mock.total_timing}
-              totalAverageSpeed={stats?.total_average_speed.toFixed(1)}
-              totalDistance={stats?.total_distance.toFixed(1)}
-            />
+            <CardStats />
 
             <Text style={styles.title}>Atividades recentes</Text>
 
