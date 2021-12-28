@@ -10,21 +10,31 @@ function _processFile(avatar) {
   }
 
   let type = getType(name);
-  return { uri, name, type };
+  return { ...avatar, uri, name, type };
 }
 
-export const updateProfile = async ({ avatar, name, id }) => {
+export const updateProfile = async ({ avatar, name }) => {
+  let response = await api.put("auth/user", { name });
+
+  if (avatar) {
+    response = await updateAvatar(avatar);
+  }
+
+  return response.data;
+};
+
+export const updateAvatar = async (avatar) => {
   const formData = new FormData();
+  formData.append("avatar", _processFile(avatar));
 
-  formData.append("username", name);
+  return await api.post("auth/user/avatar", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
-  if (avatar) formData.append("file", _processFile(avatar));
-
-  return api
-    .put(`v1/users/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then((res) => res.data);
+export const updatePassword = async (form) => {
+  let response = await api.put("auth/password", form);
+  return response.data;
 };

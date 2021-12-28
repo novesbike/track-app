@@ -22,13 +22,15 @@ export const AuthProvider = ({ children }) => {
     checkLoggedUser();
   }, []);
 
-  const login = (email, password) => {
-    return AuthService.login(email, password)
-      .then((response) => {
-        setUser(response);
-        setIsLogged(true);
-      })
-      .catch((err) => Alert.alert(err));
+  const login = async (email, password) => {
+    try {
+      await AuthService.login(email, password);
+      const user = await AuthService.getLoggedUser();
+      setUser(user);
+      setIsLogged(true);
+    } catch (err) {
+      Alert.alert(err);
+    }
   };
 
   const logout = () => {
@@ -38,11 +40,11 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (form) => {
     const result = await User.updateProfile(form);
-    setUser((user) => ({ ...user, ...result }));
+    setUser(result);
   };
 
   const register = ({ name, email, password }) => {
-    return AuthService.createAccount({ name, email, password });
+    return AuthService.register({ name, email, password });
   };
 
   const useContext = {

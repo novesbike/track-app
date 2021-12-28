@@ -1,12 +1,61 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
-import theme from "styles/theme.styles";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import theme from "styles/theme.styles";
+import api from "services/api";
+
+const def = {
+  auth: false,
+  msg: "",
+};
 
 function UpdatePassword() {
-  const [currentPassword, setCurrentPassword] = React.useState();
-  const [newPassword, setNewPassword] = React.useState();
-  const [confirmPassword, setConfirmPassword] = React.useState();
+  const navigation = useNavigation();
+  const [loading, setLoading] = React.useState(false);
+  const [current_password, setCurrentPassword] = React.useState();
+  const [password, setPassword] = React.useState();
+  const [password_confirmation, setPasswordConfirmation] = React.useState();
+  const [error, setError] = React.useState(def);
+
+  const updatePassword = async () => {
+    try {
+      setLoading(true);
+      setError(def);
+
+      if (password_confirmation !== password) {
+        setError({
+          auth: false,
+          msg: "As senhas não coincidem",
+        });
+        return false;
+      }
+
+      if (!password || password.lenght < 8) {
+        setError({
+          auth: false,
+          msg: "A senha deve conter no mínimo 8 caracteres",
+        });
+
+        return false;
+      }
+
+      await api.put("auth/user/password", {
+        current_password,
+        password,
+        password_confirmation,
+      });
+
+      navigation.navigate("Profile");
+    } catch (err) {
+      console.log(err.response);
+      setError({
+        auth: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -17,20 +66,21 @@ function UpdatePassword() {
             <View style={styles.borderInput}>
               <TextInput
                 style={styles.textInput}
-                value={currentPassword}
+                value={current_password}
                 onChangeText={setCurrentPassword}
                 placeholder={"******"}
                 secureTextEntry
               />
             </View>
+            {error.auth && <Text style={styles.errorMsg}>Senha Incorreta</Text>}
           </View>
           <View style={styles.row}>
             <Text style={styles.labelInput}>Nova senha</Text>
             <View style={styles.borderInput}>
               <TextInput
                 style={styles.textInput}
-                value={newPassword}
-                onChangeText={setNewPassword}
+                value={password}
+                onChangeText={setPassword}
                 placeholder={"**********"}
                 secureTextEntry
               />
@@ -41,12 +91,15 @@ function UpdatePassword() {
             <View style={styles.borderInput}>
               <TextInput
                 style={styles.textInput}
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
+                value={password_confirmation}
+                onChangeText={setPasswordConfirmation}
                 placeholder={"**********"}
                 secureTextEntry
               />
             </View>
+            {error && !error.auth && (
+              <Text style={styles.errorMsg}>{error.msg}</Text>
+            )}
           </View>
         </View>
         <Button
@@ -54,9 +107,10 @@ function UpdatePassword() {
           mode="outlined"
           color={theme.colors.primary}
           uppercase={false}
+          loading={loading}
           labelStyle={styles.label}
           style={styles.button}
-          onPress={() => Alert.alert("ainda não da")}
+          onPress={updatePassword}
         >
           atualizar senha
         </Button>
@@ -110,6 +164,11 @@ const styles = StyleSheet.create({
     borderRadius: theme.spacing(4),
     borderColor: theme.colors.primary,
     borderWidth: 0.5,
+  },
+  errorMsg: {
+    fontFamily: theme.font.roboto.regular,
+    color: theme.colors.red,
+    marginTop: 5,
   },
 });
 

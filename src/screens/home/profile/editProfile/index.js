@@ -26,7 +26,7 @@ function editProfile() {
   const [avatar, setAvatar] = React.useState();
   const [attach, setAttach] = React.useState();
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     setName(user.name);
     setAvatar(user.avatar);
   }, [user]);
@@ -34,7 +34,7 @@ function editProfile() {
   const updateAccountProfile = async () => {
     try {
       setLoading(true);
-      await updateProfile({ avatar: attach, name: name, id: user.id });
+      await updateProfile({ avatar: attach, name: name });
       navigation.navigate("Profile");
     } catch (err) {
       console.log(err);
@@ -118,14 +118,7 @@ function editProfile() {
           }}
           title={user.name.charAt(0)}
           onPress={openActionSheet}
-          source={
-            avatar && {
-              uri: avatar,
-              headers: {
-                Authorization: `Bearer ${user.token}`,
-              },
-            }
-          }
+          source={{ uri: avatar }}
         />
         <TouchableOpacity style={{ marginTop: 10 }} onPress={openActionSheet}>
           <Text style={styles.text}>Trocar de foto</Text>
