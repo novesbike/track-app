@@ -50,9 +50,21 @@ const colors = {
   },
 };
 
+const shadow = {
+  shadowColor: colors.black,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.34,
+  shadowRadius: 3,
+  elevation: 4,
+};
+
 export default {
   font,
   colors,
   radius,
+  shadow,
   spacing: (value) => 5 * value + height / 140,
 };

@@ -18,27 +18,27 @@ import CardActivity from "components/cardActivity";
 import { ScrollView } from "react-native-gesture-handler";
 
 function profileScreen() {
-
-  const[activities, setActivities] = React.useState([])
-  const[stats, setStats] = React.useState(null)
+  const [activities, setActivities] = React.useState([]);
+  const [stats, setStats] = React.useState(null);
 
   React.useEffect(() => {
     function getActivities() {
-     api.get("v1/activities/me").then(res=>{
-       const {activities} = res.data;
-       setActivities(activities)
-       setStats({
-         total_distance: res.data.total_distance,
-         total_average_speed: res.data.total_average_speed,
-       })
-     }).catch(console.error)
+      api
+        .get("v1/activities/me")
+        .then((res) => {
+          const { activities } = res.data;
+          setActivities(activities);
+          setStats({
+            total_distance: res.data.total_distance,
+            total_average_speed: res.data.total_average_speed,
+          });
+        })
+        .catch(console.error);
     }
-    getActivities()
-  },[])
+    getActivities();
+  }, []);
 
   return (
-
-
     <View style={styles.container}>
       <StatusBar
         animated={true}
@@ -63,6 +63,14 @@ function profileScreen() {
               {activities.map((activity) => (
                 <CardActivity data={activity} key={activity.id} />
               ))}
+
+              {activities.length === 0 && (
+                <View style={styles.feedback}>
+                  <Text style={styles.message}>
+                    Puxa, está muito quieto por aqui
+                  </Text>
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
@@ -96,8 +104,8 @@ const styles = StyleSheet.create({
   },
 
   scroll: {
-    flex:1,
-    backgroundColor: theme.colors.grey[10]
+    flex: 1,
+    backgroundColor: theme.colors.grey[10],
   },
 
   contentContainer: {
@@ -111,6 +119,19 @@ const styles = StyleSheet.create({
     fontFamily: theme.font.roboto.medium,
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(4),
+  },
+
+  feedback: {
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: theme.spacing(1),
+    ...theme.shadow,
+  },
+
+  message: {
+    color: theme.colors.grey[30],
+    fontFamily: theme.font.roboto.regular,
+    paddingVertical: 5,
   },
 
   cards: {
